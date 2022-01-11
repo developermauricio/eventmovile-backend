@@ -1,0 +1,596 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>react-design-editor</title>
+	<meta name="description" content="Documentation for react-design-editor">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">react-design-editor</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>react-design-editor</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#react-design-editor" id="react-design-editor" style="color: inherit; text-decoration: none;">
+					<h1>React Design Editor</h1>
+				</a>
+				<p><a href="https://en.wikipedia.org/wiki/MIT_License"><img src="https://img.shields.io/npm/l/react-design-editor?style=flat-square" alt=""></a> <a href="https://github.com/salgum1114/react-design-editor/actions"><img src="https://github.com/salgum1114/react-design-editor/workflows/build/badge.svg" alt="build"></a> <a href="https://www.npmjs.com/package/react-design-editor"><img src="https://flat.badgen.net/npm/v/react-design-editor?icon=npm" alt=""></a> <a href="https://david-dm.org/salgum1114/react-design-editor"><img src="https://img.shields.io/david/salgum1114/react-design-editor?style=flat-square" alt=""></a> <a href="https://david-dm.org/salgum1114/react-design-editor?type=dev"><img src="https://img.shields.io/david/dev/salgum1114/react-design-editor?style=flat-square" alt=""></a></p>
+				<p>React Design Editor is a module for React, written in Javascript/Typescript which provides two primary features:</p>
+				<ul>
+					<li>Image Editor - Create images in React, draw diagrams and arrange compositions using the image editor and save the result to one of several export formats, provides functionality similar to Powerpoint.</li>
+					<li>Business Process Modelling (BPM) - Design flowcharts and process workflows in React and export the model to JSON, which can be imported into the tool (load/save).</li>
+				</ul>
+				<p>The module primarily uses the <a href="https://github.com/ant-design/ant-design/">Ant Design</a>, <a href="https://github.com/fabricjs/fabric.js">Fabric.js</a> and <a href="https://github.com/facebook/react">React</a> libraries, but a full list of required dependencies can be found below.</p>
+				<p>Try it out today - the project is being continually developed to support a variety of different functions.</p>
+				<p><a href="https://salgum1114.github.io/react-design-editor/">View Demo</a></p>
+				<a href="#feature-list" id="feature-list" style="color: inherit; text-decoration: none;">
+					<h1>Feature List</h1>
+				</a>
+				<ul>
+					<li><input checked="" disabled="" type="checkbox"> Add, remove, resize, reorder, clone, copy/paste and drag/drop elements</li>
+					<li><input checked="" disabled="" type="checkbox"> Drawing capability, with polygon, line, arrows and link support</li>
+					<li><input checked="" disabled="" type="checkbox"> Preview mode, tooltips, group/ungroup and zoom functionality</li>
+					<li><input checked="" disabled="" type="checkbox"> Upload (with drag/drop), import and export to JSON or image</li>
+					<li><input checked="" disabled="" type="checkbox"> Image cropping, Image filters, alignment, alignment guides</li>
+					<li><input checked="" disabled="" type="checkbox"> Snap to grid, context menu, animation and video element</li>
+					<li><input checked="" disabled="" type="checkbox"> Various icons in icon picker and fonts from Google Fonts (20)</li>
+					<li><input checked="" disabled="" type="checkbox"> HTML/CSS/JS Element, iFrame element</li>
+					<li><input checked="" disabled="" type="checkbox"> Animation support, with Fade / Bounce / Shake / Scaling / Rotation / Flash effects</li>
+					<li><input checked="" disabled="" type="checkbox"> Code Editor with HTML / CSS / JS / Preview</li>
+					<li><input checked="" disabled="" type="checkbox"> Various interaction modes, including grasp, selection, ctrl + drag grab</li>
+					<li><input checked="" disabled="" type="checkbox"> Multiple layouts, with fixed, responsive, fullscreen and grid modes</li>
+					<li><input checked="" disabled="" type="checkbox"> SVG, Chart and GIF elements</li>
+					<li><input checked="" disabled="" type="checkbox"> Undo/Redo support</li>
+					<li><input disabled="" type="checkbox"> Wireframes - in development</li>
+					<li><input disabled="" type="checkbox"> Multiple Map - in development</li>
+					<li><input disabled="" type="checkbox"> Ruler - in development</li>
+				</ul>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h1>Installation</h1>
+				</a>
+				<p>Run <code>npm install react-design-editor</code> or <code>yarn add react-design-editor</code></p>
+				<a href="#getting-started" id="getting-started" style="color: inherit; text-decoration: none;">
+					<h1>Getting Started</h1>
+				</a>
+				<ol>
+					<li>Clone this Project with <code>git clone https://github.com/salgum1114/react-design-editor.git</code></li>
+					<li>Install dependencies with <code>npm install</code> or <code>yarn</code></li>
+					<li>Run the App with <code>npm start</code> or <code>yarn start</code></li>
+					<li>Open your web browser to <code>http://localhost:4000</code></li>
+				</ol>
+				<a href="#screenshots" id="screenshots" style="color: inherit; text-decoration: none;">
+					<h1>Screenshots</h1>
+				</a>
+				<a href="#image-map-editor" id="image-map-editor" style="color: inherit; text-decoration: none;">
+					<h2>Image Map Editor</h2>
+				</a>
+				<a href="#1-fixed-layout-mode" id="1-fixed-layout-mode" style="color: inherit; text-decoration: none;">
+					<h3>1. Fixed Layout Mode</h3>
+				</a>
+				<p><img src="https://user-images.githubusercontent.com/19975642/55678049-6aff6180-592e-11e9-8b29-8e1d60df178a.PNG" alt="fixed"></p>
+				<a href="#2-responsive-layout-mode" id="2-responsive-layout-mode" style="color: inherit; text-decoration: none;">
+					<h3>2. Responsive Layout Mode</h3>
+				</a>
+				<p><img src="https://user-images.githubusercontent.com/19975642/55678050-6cc92500-592e-11e9-8a57-c82d371e4be1.PNG" alt="responsive"></p>
+				<a href="#3-full-screen-layout-mode" id="3-full-screen-layout-mode" style="color: inherit; text-decoration: none;">
+					<h3>3. Full Screen Layout Mode</h3>
+				</a>
+				<p><img src="https://user-images.githubusercontent.com/19975642/55678051-6dfa5200-592e-11e9-9b9e-b8d8ee3ccb08.PNG" alt="fullscreen"></p>
+				<a href="#4-preview-mode" id="4-preview-mode" style="color: inherit; text-decoration: none;">
+					<h3>4. Preview Mode</h3>
+				</a>
+				<p><img src="https://user-images.githubusercontent.com/19975642/55678052-6fc41580-592e-11e9-9958-9a9be8239bd7.PNG" alt="preview"></p>
+				<a href="#workflow-editor" id="workflow-editor" style="color: inherit; text-decoration: none;">
+					<h2>Workflow Editor</h2>
+				</a>
+				<p><img src="https://user-images.githubusercontent.com/19975642/55678053-718dd900-592e-11e9-9996-cce9b46d8433.PNG" alt="workflow"></p>
+				<a href="#❤️-sponsors-and-backers---" id="❤️-sponsors-and-backers---" style="color: inherit; text-decoration: none;">
+					<h2>❤️ Sponsors and Backers <a href="https://opencollective.com/react-design-editor/contribute"><img src="https://opencollective.com/react-design-editor/tiers/badge.svg" alt=""></a> <a href="https://opencollective.com/react-design-editor/contribute"><img src="https://opencollective.com/react-design-editor/tiers/sponsor/badge.svg?label=Sponsor&color=brightgreen" alt=""></a> <a href="https://opencollective.com/react-design-editor/contribute"><img src="https://opencollective.com/react-design-editor/tiers/backer/badge.svg?label=Backer&color=brightgreen" alt=""></a></h2>
+				</a>
+				<p><a href="https://marketplace.atlassian.com/apps/1222276/workflows-for-confluence"><img src="https://remote.automation-consultants.com/knowledge/download/attachments/57671882/sponsorship.png" alt="Sponsored by Workflows for Confluence"></a></p>
+				<p><a href="https://opencollective.com/react-design-editor/contribute"><img src="https://opencollective.com/react-design-editor/tiers/sponsor.svg?avatarHeight=36" alt=""></a></p>
+				<p><a href="https://opencollective.com/react-design-editor/contribute"><img src="https://opencollective.com/react-design-editor/tiers/backer.svg?avatarHeight=36" alt=""></a></p>
+				<a href="#dependencies" id="dependencies" style="color: inherit; text-decoration: none;">
+					<h1>Dependencies</h1>
+				</a>
+				<table>
+					<thead>
+						<tr>
+							<th>Dependency</th>
+							<th>License(s)</th>
+						</tr>
+					</thead>
+					<tbody><tr>
+							<td><a href="https://github.com/facebook/react">React</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/ant-design/ant-design/">Ant Design</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/fabricjs/fabric.js">Fabric.js</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/mediaelement/mediaelement">MediaElement.js</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/securingsincity/react-ace">React-Ace</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/taye/interact.js">interact.js</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/juliangarnier/anime/">anime.js</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/webpack/webpack">Webpack 4</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/babel/babel">Babel</a></td>
+							<td>MIT</td>
+						</tr>
+						<tr>
+							<td><a href="https://github.com/FortAwesome/Font-Awesome">fontawesome5</a></td>
+							<td>Icons (CC BY 4.0), Fonts (SIL OFL 1.1), Code (MIT)</td>
+						</tr>
+				</tbody></table>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/alignmenthandler.html" class="tsd-kind-icon">Alignment<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/animationhandler.html" class="tsd-kind-icon">Animation<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter tsd-is-external">
+						<a href="classes/canvas.html" class="tsd-kind-icon">Canvas</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/charthandler.html" class="tsd-kind-icon">Chart<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/contextmenuhandler.html" class="tsd-kind-icon">Contextmenu<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/crophandler.html" class="tsd-kind-icon">Crop<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/drawinghandler.html" class="tsd-kind-icon">Drawing<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/elementhandler.html" class="tsd-kind-icon">Element<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/eventhandler.html" class="tsd-kind-icon">Event<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/gridhandler.html" class="tsd-kind-icon">Grid<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/guidelinehandler.html" class="tsd-kind-icon">Guideline<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/handler.html" class="tsd-kind-icon">Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/imagehandler.html" class="tsd-kind-icon">Image<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/interactionhandler.html" class="tsd-kind-icon">Interaction<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/linkhandler.html" class="tsd-kind-icon">Link<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/mediaelementplayer.html" class="tsd-kind-icon">Media<wbr>Element<wbr>Player</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/nodehandler.html" class="tsd-kind-icon">Node<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/porthandler.html" class="tsd-kind-icon">Port<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/shortcuthandler.html" class="tsd-kind-icon">Shortcut<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/tooltiphandler.html" class="tsd-kind-icon">Tooltip<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/transactionhandler.html" class="tsd-kind-icon">Transaction<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/workareahandler.html" class="tsd-kind-icon">Workarea<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-class tsd-is-external">
+						<a href="classes/zoomhandler.html" class="tsd-kind-icon">Zoom<wbr>Handler</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/animationproperty.html" class="tsd-kind-icon">Animation<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/blendcolorfilter.html" class="tsd-kind-icon">Blend<wbr>Color<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/blendimagefilter.html" class="tsd-kind-icon">Blend<wbr>Image<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/canvasobjectschema.html" class="tsd-kind-icon">Canvas<wbr>Object<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/canvasoption.html" class="tsd-kind-icon">Canvas<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/chartobject.html" class="tsd-kind-icon">Chart<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/code.html" class="tsd-kind-icon">Code</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/colormatrixfilter.html" class="tsd-kind-icon">Color<wbr>Matrix<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/cubeobject.html" class="tsd-kind-icon">Cube<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/elementcode.html" class="tsd-kind-icon">Element<wbr>Code</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/elementobject.html" class="tsd-kind-icon">Element<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/fabriccanvasoption.html" class="tsd-kind-icon">Fabric<wbr>Canvas<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/fabricelement.html" class="tsd-kind-icon">Fabric<wbr>Element</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter tsd-is-external">
+						<a href="interfaces/fabricevent.html" class="tsd-kind-icon">Fabric<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/gammafilter.html" class="tsd-kind-icon">Gamma<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/gradienttransparencyfilter.html" class="tsd-kind-icon">Gradient<wbr>Transparency<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/gridoption.html" class="tsd-kind-icon">Grid<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/guidelineoption.html" class="tsd-kind-icon">Guideline<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/handlercallback.html" class="tsd-kind-icon">Handler<wbr>Callback</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/handleroption.html" class="tsd-kind-icon">Handler<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/huerotationfilter.html" class="tsd-kind-icon">Hue<wbr>Rotation<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/ifilter.html" class="tsd-kind-icon">IFilter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/istate.html" class="tsd-kind-icon">IState</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/iframeobject.html" class="tsd-kind-icon">Iframe<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/keyevent.html" class="tsd-kind-icon">Key<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/linkobject.html" class="tsd-kind-icon">Link<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/linkoption.html" class="tsd-kind-icon">Link<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/linkproperty.html" class="tsd-kind-icon">Link<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/maskfilter.html" class="tsd-kind-icon">Mask<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/multiplyfilter.html" class="tsd-kind-icon">Multiply<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/nodeobject.html" class="tsd-kind-icon">Node<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/objectschema.html" class="tsd-kind-icon">Object<wbr>Schema</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/portobject.html" class="tsd-kind-icon">Port<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/removecolorfilter.html" class="tsd-kind-icon">Remove<wbr>Color<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/removewhitefilter.html" class="tsd-kind-icon">Remove<wbr>White<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/resizefilter.html" class="tsd-kind-icon">Resize<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/svgoption.html" class="tsd-kind-icon">Svg<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/tintfilter.html" class="tsd-kind-icon">Tint<wbr>Filter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/tooltipproperty.html" class="tsd-kind-icon">Tooltip<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/transactionevent.html" class="tsd-kind-icon">Transaction<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/transactiontransform.html" class="tsd-kind-icon">Transaction<wbr>Transform</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/triggerproperty.html" class="tsd-kind-icon">Trigger<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/videoobject.html" class="tsd-kind-icon">Video<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-external">
+						<a href="interfaces/workareaoption.html" class="tsd-kind-icon">Workarea<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#animationtype" class="tsd-kind-icon">Animation<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#canvasprops" class="tsd-kind-icon">Canvas<wbr>Props</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#elementobjecttype" class="tsd-kind-icon">Element<wbr>Object<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#elementtype" class="tsd-kind-icon">Element<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#fabriccanvas" class="tsd-kind-icon">Fabric<wbr>Canvas</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#fabricgroup" class="tsd-kind-icon">Fabric<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#fabricimage" class="tsd-kind-icon">Fabric<wbr>Image</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#fabricobject" class="tsd-kind-icon">Fabric<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#fabricobjectoption" class="tsd-kind-icon">Fabric<wbr>Object<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#fabricobjects" class="tsd-kind-icon">Fabric<wbr>Objects</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#grayscalemodetype" class="tsd-kind-icon">Grayscale<wbr>Mode<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#handleroptions" class="tsd-kind-icon">Handler<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#ireturntype" class="tsd-kind-icon">IReturn<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#interactionmode" class="tsd-kind-icon">Interaction<wbr>Mode</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#nodetype" class="tsd-kind-icon">Node<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#resizetype" class="tsd-kind-icon">Resize<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#svgobject" class="tsd-kind-icon">Svg<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#transactiontype" class="tsd-kind-icon">Transaction<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external">
+						<a href="globals.html#valuesof" class="tsd-kind-icon">Values<wbr>Of</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#workarealayout" class="tsd-kind-icon">Workarea<wbr>Layout</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-is-external">
+						<a href="globals.html#workareaobject" class="tsd-kind-icon">Workarea<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#arrow" class="tsd-kind-icon">Arrow</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#chart" class="tsd-kind-icon">Chart</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#circleport" class="tsd-kind-icon">Circle<wbr>Port</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#cube" class="tsd-kind-icon">Cube</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#curvedlink" class="tsd-kind-icon">Curved<wbr>Link</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#emboss_matrix" class="tsd-kind-icon">EMBOSS_<wbr>MATRIX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#element" class="tsd-kind-icon">Element</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#filter_types" class="tsd-kind-icon">FILTER_<wbr>TYPES</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#gif" class="tsd-kind-icon">Gif</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#iframe" class="tsd-kind-icon">Iframe</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#line" class="tsd-kind-icon">Line</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#link" class="tsd-kind-icon">Link</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#node" class="tsd-kind-icon">Node</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#orthogonallink" class="tsd-kind-icon">Orthogonal<wbr>Link</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#port" class="tsd-kind-icon">Port</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#sharpen_matrix" class="tsd-kind-icon">SHARPEN_<wbr>MATRIX</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#svg" class="tsd-kind-icon">Svg</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#video" class="tsd-kind-icon">Video</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-external">
+						<a href="globals.html#propertiestoinclude" class="tsd-kind-icon">properties<wbr>ToInclude</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#capitalize" class="tsd-kind-icon">capitalize</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#createcanvasobject" class="tsd-kind-icon">create<wbr>Canvas<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#getellipsis" class="tsd-kind-icon">get<wbr>Ellipsis</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-external">
+						<a href="globals.html#toobject" class="tsd-kind-icon">to<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#canvasobject" class="tsd-kind-icon">Canvas<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#descriptions" class="tsd-kind-icon">DESCRIPTIONS</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#node_colors" class="tsd-kind-icon">NODE_<wbr>COLORS</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#out_port_type" class="tsd-kind-icon">OUT_<wbr>PORT_<wbr>TYPE</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#activeselectionoption" class="tsd-kind-icon">active<wbr>Selection<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#canvasoption" class="tsd-kind-icon">canvas<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#gridoption" class="tsd-kind-icon">grid<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#guidelineoption" class="tsd-kind-icon">guideline<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#initialcode" class="tsd-kind-icon">initial<wbr>Code</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#keyevent" class="tsd-kind-icon">key<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#objectoption" class="tsd-kind-icon">object<wbr>Option</a>
+					</li>
+					<li class=" tsd-kind-object-literal tsd-is-external">
+						<a href="globals.html#workareaoption" class="tsd-kind-icon">workarea<wbr>Option</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

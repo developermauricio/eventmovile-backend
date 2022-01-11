@@ -1,0 +1,38 @@
+INSERT INTO heartonline.department ( `name`, `code`, `country_id` ) VALUES
+( 'Antioquia', 5,1),
+( 'Atlantico', 8,1),
+( 'D. C. Santa Fe de Bogotá', 11,1),
+( 'Bolivar', 13,1),
+( 'Boyaca', 15,1),
+( 'Caldas', 17,1),
+( 'Caqueta', 18,1),
+( 'Cauca', 19,1),
+( 'Cesar', 20,1),
+( 'Cordova', 23,1),
+( 'Cundinamarca', 25,1),
+( 'Choco', 27,1),
+( 'Huila', 41,1),
+( 'La Guajira', 44,1),
+( 'Magdalena', 47,1),
+( 'Meta', 50,1),
+( 'Nariño', 52,1),
+( 'Norte de Santander', 54,1),
+( 'Quindio', 63,1),
+( 'Risaralda', 66,1),
+( 'Santander', 68,1),
+( 'Sucre', 70,1),
+( 'Tolima', 73,1),
+('Valle', 76,1),
+( 'Arauca', 81,1),
+( 'Casanare', 85,1),
+( 'Putumayo', 86,1),
+( 'San Andres', 88,1),
+( 'Amazonas', 91,1),
+( 'Guainia', 94,1),
+( 'Guaviare', 95,1),
+( 'Vaupes', 97,1),
+('Vichada', 99,1);
+
+
+
+ALTER TABLE heartonline.department AUTO_INCREMENT=34;
