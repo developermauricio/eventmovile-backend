@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){    
+//Route::group(['prefix' => 'v1'],function(){    
     /**begin web app */    
     //begin administration
     Route::get('lastedIdEvent/','Api\Event\EventController@getLastedEventId');

@@ -68,6 +68,8 @@ class EventController extends Controller
     {
         $role = auth()->user()->getRoleNames()->first();
         $user = DB::table('users')->where('id', Auth()->id())->first();
+
+        //return $this->showAll($role,200);
         
         if($role == "super admin"){
             $events =Event::with('activities:id,name')->with('company:id,name')
@@ -1029,19 +1031,24 @@ class EventController extends Controller
                 ->join('activity_speakers as as2','s.id', '=', 'as2.speaker_id')
                 ->join('activities as a2','a2.id', '=', 'as2.activity_id')
                 ->where('a2.event_id', $eventId)
+                ->distinct() //TODO Cambios necesatios agregar esta linea para consultar spekers no repetidos 
                 ->get();
         return $this->successResponse(['data'=> $find, 'message'=>'list all speaker by event'], 201);  
     }
 
     public function saveImg($file)
-    {        
+    {       
+        if(!$file){
+            return;
+        }
         try {
             # Storage::disk('local')->put($nameFile,  \File::get($file));
             # Storage::disk('digitalocean')->put($nameFile, \File::get($file));
             $path = Storage::disk('digitalocean')->putFile('uploads', $file, 'public');
             return $path;
         } catch (Exception $e) {
-            return ' Error al subir el archivo ' . $file;
+            
+            return ' Error al subir el archivo ' . $e;
         }
     }
 
@@ -1105,11 +1112,13 @@ class EventController extends Controller
      * agrega las imgs banner de web app
     */
     public function addBannersWA(Request $request){
+        
         $id = $request->id;
         $bannerOneVal = $request->bannerOne;
         $bannerTwoVal = $request->bannerTwo;
-        $bannerOne = $this.saveImg($bannerOneVal);
-        $bannerTwo = $this.saveImg($bannerTwoVal);
+        $bannerOne = $this->saveImg($bannerOneVal);
+        $bannerTwo = $this->saveImg($bannerTwoVal);
+    
         $valid = DB::table('event_styles')->where('event_id', $id)->first();
         if($valid===null){
             $create = EventStyle::create([
