@@ -405,6 +405,41 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     
     Route::get('mail-tracking/{id}/{action?}','Api\EmailTracking\EmailTrackingController@store')->name('mail-tracking');
     
+    //--/networking
+    Route::group(['prefix' => 'networking-wa'], function (){
+        Route::post(
+            'send-solicitud',
+            'Api\WebApp\Networking\NetworkingController@sendSolicitud'
+        );
+        Route::put(
+            'aceptar-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@aceptarSolicitud'
+        );
+        Route::put(
+            'rechazar-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@rechazarSolicitud'
+        );
+        Route::get(
+            'get-solicitudes',
+            'Api\WebApp\Networking\NetworkingController@getSolicitudesRecibidas'
+        );
+        Route::get(
+            'chats-user',
+            'Api\WebApp\Networking\NetworkingController@getChatsUsuario'
+        );
+        Route::get(
+            'chat-info/{key}',
+            'Api\WebApp\Networking\NetworkingController@chatInfo'
+        );
+
+        Route::post(
+            'store-message', 'Api\WebApp\Networking\NetworkingController@storeMessage'
+        );
+        
+        Route::post(
+            'messages/{id}', 'Api\WebApp\Networking\NetworkingController@getMessages'
+        );
+    });
        
 });
 
@@ -445,5 +480,5 @@ Route::group(['prefix' => 'v1'],function(){
     //--/login 
     Route::post('auth-wa/basic', 'Api\Auth\AuthController@loginWA')->name('loginWA');
     //--/detail event
-    Route::post('validPathEvent','Api\Event\EventController@validPathEvent');   
+    Route::post('validPathEvent','Api\Event\EventController@validPathEvent');
 });
