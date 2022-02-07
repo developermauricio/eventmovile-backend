@@ -15,17 +15,20 @@ class NetworkingController extends Controller
     public function sendSolicitud(Request $request)
     {
         $guest_id = $request->input('guest');
+        $event_id = $request->input('event');
         $creator_id = auth()->user()->id;
 
         $networking = NetworkingWebApp::where('creator_id', $creator_id)
+            ->where('event_id', $event_id)
             ->where('guest_id', $guest_id)->first();
 
         $hasSolicitud = NetworkingWebApp::where('creator_id', $guest_id)
             ->where('guest_id', $creator_id)
+            ->where('event_id', $event_id)
             ->first();
 
         if ($hasSolicitud) {
-            if ($hasSolicitud->status === NetworkingWebApp::PENDING) {
+            if ($hasSolicitud->status !== NetworkingWebApp::ACCEPTED) {
                 $hasSolicitud->status = NetworkingWebApp::ACCEPTED;
                 $hasSolicitud->save();
             }
@@ -76,10 +79,13 @@ class NetworkingController extends Controller
         return response()->json($networking);
     }
 
-    public function getChatsUsuario()
+    public function getChatsUsuario(Request $request)
     {
         $user_id = auth()->user()->id;
+        $event_id = $request->input('event');
+
         $networking = NetworkingWebApp::select('id', 'chat_id', 'guest_id', 'creator_id')
+            ->where('event_id', $event_id)
             ->where(function ($q) use ($user_id) {
                 return $q->where('creator_id', $user_id)->orWhere('guest_id', $user_id);
             })
@@ -139,5 +145,12 @@ class NetworkingController extends Controller
             ->orderBy('id', 'DESC')
             ->paginate(50);
         return response()->json($messages);
+    }
+
+    public function deleteSolicitud($id){
+        $solicitud = NetworkingWebApp::findOrFAil($id);
+        $solicitud->delete();
+
+        return response()->json([], 204);
     }
 }

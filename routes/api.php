@@ -420,8 +420,12 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
             'Api\WebApp\Networking\NetworkingController@rechazarSolicitud'
         );
         Route::get(
-            'get-solicitudes',
+            'get-solicitudes-recibidas',
             'Api\WebApp\Networking\NetworkingController@getSolicitudesRecibidas'
+        );
+        Route::get(
+            'get-solicitudes-enviadas',
+            'Api\WebApp\Networking\NetworkingController@getSolicitudesEnviadas'
         );
         Route::get(
             'chats-user',
@@ -431,7 +435,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
             'chat-info/{key}',
             'Api\WebApp\Networking\NetworkingController@chatInfo'
         );
-
+        Route::delete(
+            'delete-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@deleteSolicitud'
+        );
         Route::post(
             'store-message', 'Api\WebApp\Networking\NetworkingController@storeMessage'
         );
