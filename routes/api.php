@@ -407,6 +407,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     
     //--/networking
     Route::group(['prefix' => 'networking-wa'], function (){
+        Route::get(
+            'get-participants/{idEvent}',
+            'Api\WebApp\Networking\NetworkingController@getParticipants'
+        );
         Route::post(
             'send-solicitud',
             'Api\WebApp\Networking\NetworkingController@sendSolicitud'
@@ -418,6 +422,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
         Route::put(
             'rechazar-solicitud/{id}',
             'Api\WebApp\Networking\NetworkingController@rechazarSolicitud'
+        );
+        Route::delete(
+            'eliminar-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@eliminarSolicitud'
         );
         Route::get(
             'get-solicitudes-recibidas',
@@ -442,12 +450,26 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
         Route::post(
             'store-message', 'Api\WebApp\Networking\NetworkingController@storeMessage'
         );
-        
+
         Route::post(
             'messages/{id}', 'Api\WebApp\Networking\NetworkingController@getMessages'
         );
+
+        Route::post(
+            'get-notifications',
+            'Api\WebApp\NotificationController@getNotifications'
+        );
+
+        Route::put(
+            'read-notification/{id}',
+            'Api\WebApp\NotificationController@readNotification'
+        );
+
+        Route::post(
+            'add-notification/{idUser}',
+            'Api\WebApp\NotificationController@addNotification'
+        );
     });
-       
 });
 
 
