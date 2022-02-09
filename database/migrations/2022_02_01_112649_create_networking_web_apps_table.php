@@ -19,6 +19,9 @@ class CreateNetworkingWebAppsTable extends Migration
 
             $table->string('chat_id')->unique();
 
+            $table->unsignedBigInteger('event_id')->nullable();
+            $table->foreign('event_id')->references('id')->on('events');
+
             $table->unsignedBigInteger('creator_id');
             $table->foreign('creator_id')->references('id')->on('users');
 

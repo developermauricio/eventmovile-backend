@@ -71,4 +71,19 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+
+    public function requestSent()
+    {
+        return $this->hasOne(NetworkingWebApp::class, 'guest_id');
+    }
+
+    public function requestReceived()
+    {
+        return $this->hasOne(NetworkingWebApp::class, 'creator_id');
+    }
+
+    public function eventUsers(){
+        return $this->hasMany(EventUser::class, 'user_id');
+    }
 }

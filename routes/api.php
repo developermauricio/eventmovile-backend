@@ -408,6 +408,10 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     
     //--/networking
     Route::group(['prefix' => 'networking-wa'], function (){
+        Route::get(
+            'get-participants/{idEvent}',
+            'Api\WebApp\Networking\NetworkingController@getParticipants'
+        );
         Route::post(
             'send-solicitud',
             'Api\WebApp\Networking\NetworkingController@sendSolicitud'
@@ -420,9 +424,17 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
             'rechazar-solicitud/{id}',
             'Api\WebApp\Networking\NetworkingController@rechazarSolicitud'
         );
+        Route::delete(
+            'eliminar-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@eliminarSolicitud'
+        );
         Route::get(
-            'get-solicitudes',
+            'get-solicitudes-recibidas',
             'Api\WebApp\Networking\NetworkingController@getSolicitudesRecibidas'
+        );
+        Route::get(
+            'get-solicitudes-enviadas',
+            'Api\WebApp\Networking\NetworkingController@getSolicitudesEnviadas'
         );
         Route::get(
             'chats-user',
@@ -432,16 +444,33 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
             'chat-info/{key}',
             'Api\WebApp\Networking\NetworkingController@chatInfo'
         );
-
+        Route::delete(
+            'delete-solicitud/{id}',
+            'Api\WebApp\Networking\NetworkingController@deleteSolicitud'
+        );
         Route::post(
             'store-message', 'Api\WebApp\Networking\NetworkingController@storeMessage'
         );
-        
+
         Route::post(
             'messages/{id}', 'Api\WebApp\Networking\NetworkingController@getMessages'
         );
+
+        Route::post(
+            'get-notifications',
+            'Api\WebApp\NotificationController@getNotifications'
+        );
+
+        Route::put(
+            'read-notification/{id}',
+            'Api\WebApp\NotificationController@readNotification'
+        );
+
+        Route::post(
+            'add-notification/{idUser}',
+            'Api\WebApp\NotificationController@addNotification'
+        );
     });
-       
 });
 
 
