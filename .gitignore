@@ -16,3 +16,5 @@ yarn-error.log
 
 composer.lock
 storage/framework/cache
+
+package-lock.json
