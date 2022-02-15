@@ -18,3 +18,8 @@ composer.lock
 storage/framework/cache
 
 package-lock.json
+*.log
+storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891
+storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df
+storage/framework/cache/data/76/e7/76e7c0fdd0cc0d46502f9d381b947cdf6aa69891
+storage/framework/cache/data/9c/1c/9c1c01dc3ac1445a500251fc34a15d3e75a849df
