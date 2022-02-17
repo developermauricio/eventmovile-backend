@@ -512,6 +512,7 @@ Route::group(['prefix' => 'v1'],function(){
     Route::post('/save-like-gallery', 'Api\Gallery\GalleryController@saveLikeGallery');
     Route::post('/remove-like-gallery/{id}', 'Api\Gallery\GalleryController@removeLikeGallery');
     Route::get('/get-data-gallery/{id}', 'Api\Gallery\GalleryController@getDataGallery');
+    Route::get('/get-data-gallery-home/{id}', 'Api\Gallery\GalleryController@getDataGalleryHome');
     Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
 
     //--web app

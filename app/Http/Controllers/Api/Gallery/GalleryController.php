@@ -77,6 +77,14 @@ class GalleryController extends Controller
 
         return response()->json($gallery);
     }
+    public function getDataGalleryHome($id){
+        $event_id = $id;
+        $gallery = GalleryWebApp::where('event_id', $event_id)->latest()
+            ->take(5)
+            ->get();
+
+        return response()->json($gallery);
+    }
 
     public function getDatalLikeGallery($id, $user){
 
