@@ -505,7 +505,15 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('eventTypesExt', 'Api\Event\EventTypeController@index'); 
     Route::get('peopleLimit/{event}','Api\Event\EventController@getPeopleLimit');
 
-    
+    //--/Galleria web app
+    Route::post('/upload-image-gallery', 'Api\Gallery\GalleryController@uploadImage');
+    Route::post('/removed-gallery-picture', 'Api\Gallery\GalleryController@removedImage');
+    Route::post('/save-picture-gallery', 'Api\Gallery\GalleryController@saveImage');
+    Route::post('/save-like-gallery', 'Api\Gallery\GalleryController@saveLikeGallery');
+    Route::post('/remove-like-gallery/{id}', 'Api\Gallery\GalleryController@removeLikeGallery');
+    Route::get('/get-data-gallery/{id}', 'Api\Gallery\GalleryController@getDataGallery');
+    Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
+
     //--web app
     //--/login 
     Route::post('auth-wa/basic', 'Api\Auth\AuthController@loginWA')->name('loginWA');
