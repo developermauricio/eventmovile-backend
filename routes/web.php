@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/email', function (){
+   return new \App\Mail\Event\NewRegister('Mauricio', 'Gutierrez', 'Carnavales');
+});
+
+Route::get('/pruebas', function (){
+    \PhpMqtt\Client\Facades\MQTT::publish('online_users_eventmovil', 'Nuevo proyecto en la badeja');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

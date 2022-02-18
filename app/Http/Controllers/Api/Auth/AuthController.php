@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Mail\Event\NewRegister;
+use App\Traits\response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\User;
 use App\Event;
 use App\Guest;
+use PhpMqtt\Client\Facades\MQTT;
 use Validator;
 use App\BusinessMarketsRelUsers;
 use App\Traits\sendEmail;
@@ -97,7 +101,8 @@ class AuthController extends Controller
      */
     
     public function login(Request $request)
-    {                
+    {
+
         $eventOk = false;
         $rules = [
             'email'    => 'required|email|exists:users,email',
@@ -108,7 +113,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($request->eventId) {
             $event = Event::where('id', $request->eventId)->first();
-            
+
             $eventUser = EventUser::where('user_id', $user->id)->where('event_id',$request->eventId)->first();
             if (!$event || !$user || !$eventUser)
                 return $this->errorResponse('Unauthorized: Access is denied due to invalid credentials. 1', 401);            
@@ -117,6 +122,8 @@ class AuthController extends Controller
             } 
         }        
         if($eventOk){
+            User::where('email', $request->email)->update(['online' => '1']);
+            MQTT::publish('online_users_eventmovil', 'onlines users');
             Auth::login($user);
         }else{            
             if (Auth::attempt(['email' => $request->email, 'password' => $request->password], true)) {
@@ -300,30 +307,32 @@ class AuthController extends Controller
         $message1 = str_replace("*u", $request->name, $event->message_email);
         $message = str_replace("*e", $event->name, $message1);
 
-        $templete = "
-        <div style='background-color:" . $event->first_color . "; width:50%; border-radius:10px;'>
-            <h4 style='color:" . $event->second_color . "; text-align: center; font-size: 30px; padding-top: 5%;'>" . $event->name . "</h4>
-            <img style='width:80%; padding-left:10%;'  src='" . env('IMAGE_URL') . $event->pic_banner . "'/>
-            <p style='color:" . $event->third_color . "; margin: 5%; padding-bottom:10%; font-size:15px;'>" . $message . "</p>
-            <table style='color:#f7f7f7;margin:5%;padding-bottom: 3%;font-size:15px; width:90%; text-align:center;'>
-                <tbody><tr>
-                    <td style='color:" . $event->second_color . "'><b>Inicia/</b></td>
-                    <td style='color:" . $event->second_color . "'><b>Termina/</b></td>
-                </tr>
-                <tr>
-                    <td style='font-size:15px;'>" . $event->start_date . "</td>
-                    <td>" . $event->end_date . "</td>
-                </tr>
-                <tr>
-                    <td colspan='2' style='padding-top: 5%;'></td>
-                </tr>
-            </tbody></table>
-            <a target='_blank'  href='" . env('FRONT') . "#/login?eventId=" . $event->id . "'>
-            <button style='margin-left: 35%; background-color:" . $event->second_color . "; color:" . $event->third_color . ";margin-bottom: 10%;
-            width: 30%; height: 40px; border-radius: 5px; border-color: #9e3dff;'>Ir al sitio</button><a>
-        </div>";
-
-        $email = $this->sendEmail($request->email, $event->subject_email, $templete);
+//        $templete = "
+//        <div style='background-color:" . $event->first_color . "; width:50%; border-radius:10px;'>
+//            <h4 style='color:" . $event->second_color . "; text-align: center; font-size: 30px; padding-top: 5%;'>" . $event->name . "</h4>
+//            <img style='width:80%; padding-left:10%;'  src='" . env('IMAGE_URL') . $event->pic_banner . "'/>
+//            <p style='color:" . $event->third_color . "; margin: 5%; padding-bottom:10%; font-size:15px;'>" . $message . "</p>
+//            <table style='color:#f7f7f7;margin:5%;padding-bottom: 3%;font-size:15px; width:90%; text-align:center;'>
+//                <tbody><tr>
+//                    <td style='color:" . $event->second_color . "'><b>Inicia/</b></td>
+//                    <td style='color:" . $event->second_color . "'><b>Termina/</b></td>
+//                </tr>
+//                <tr>
+//                    <td style='font-size:15px;'>" . $event->start_date . "</td>
+//                    <td>" . $event->end_date . "</td>
+//                </tr>
+//                <tr>
+//                    <td colspan='2' style='padding-top: 5%;'></td>
+//                </tr>
+//            </tbody></table>
+//            <a target='_blank'  href='" . env('FRONT') . "#/login?eventId=" . $event->id . "'>
+//            <button style='margin-left: 35%; background-color:" . $event->second_color . "; color:" . $event->third_color . ";margin-bottom: 10%;
+//            width: 30%; height: 40px; border-radius: 5px; border-color: #9e3dff;'>Ir al sitio</button><a>
+//        </div>";
+//
+//        $email = $this->sendEmail($request->email, $event->subject_email, $templete);
+        dd('holas');
+        Mail::to($request->email)->send(new NewRegister($request->name, $request->last_name, $event->name));
     }
 
 
@@ -504,5 +513,16 @@ class AuthController extends Controller
                 $userupdate->save();
             }
         }
+    }
+
+    public function inactiveOnlineUser($id){
+        $user = User::where('id', $id)->update(['online' => '0']);
+        MQTT::publish('online_users_eventmovil', 'onlines users');
+        return response()->json('Se actualizo el estado online correctamente', 201);
+    }
+    public function activeOnlineUser($id){
+        $user = User::where('id', $id)->update(['online' => '1']);
+        MQTT::publish('online_users_eventmovil', 'onlines users');
+        return response()->json('Se actualizo el estado online correctamente', 201);
     }
 }

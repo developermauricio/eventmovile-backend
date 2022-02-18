@@ -23,7 +23,7 @@ trait sendEmail{
         return $html;
     }
 
-    public function trackingEmail($email,$subject, $content, $type = "",  $model, $model_id){
+    public function trackingEmail($email,$subject, $content, $type,  $model, $model_id){
         $email = Email::create([
             "subject"=>$subject,
             "type"   =>$type,

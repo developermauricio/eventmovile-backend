@@ -518,6 +518,8 @@ Route::group(['prefix' => 'v1'],function(){
     //--web app
     //--/login 
     Route::post('auth-wa/basic', 'Api\Auth\AuthController@loginWA')->name('loginWA');
+    Route::post('/inactive-online-user/{id}', 'Api\Auth\AuthController@inactiveOnlineUser');
+    Route::post('/active-online-user/{id}', 'Api\Auth\AuthController@activeOnlineUser');
     //--/detail event
     Route::post('validPathEvent','Api\Event\EventController@validPathEvent');
 });
