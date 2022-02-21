@@ -519,7 +519,14 @@ Route::group(['prefix' => 'v1'],function(){
     //--/login 
     Route::post('auth-wa/basic', 'Api\Auth\AuthController@loginWA')->name('loginWA');
     Route::post('/inactive-online-user/{id}', 'Api\Auth\AuthController@inactiveOnlineUser');
-    Route::post('/active-online-user/{id}', 'Api\Auth\AuthController@activeOnlineUser');
+    Route::post('/active-online-user/{id}', 'Api\Auth\AuthController@activeOnlineUser'); 
+
+    // refresh info
+    Route::get('/refresh-token', 'Api\Auth\AuthController@refreshToken'); 
+    Route::post('/refresh-data-user', 'Api\User\UserController@getDataUser'); 
+    Route::post('/upload-photo-user', 'Api\User\UserController@uploadPhotoProfile'); 
+    Route::post('/remove-photo-user', 'Api\User\UserController@removedPhotoProfile'); 
+    
     //--/detail event
     Route::post('validPathEvent','Api\Event\EventController@validPathEvent');
 });

@@ -226,4 +226,35 @@ class UserController extends Controller
 
         return json_encode($consulta);
     }
+
+    //TODO: metodo para consultar datos del usuario
+    public function getDataUser( Request $request ) {
+        $user = User::whereEmail($request->email)->first();
+
+        return response()->json($user);
+    }
+
+    public function uploadPhotoProfile(Request $request) {
+        $picture = $request->file('photo');
+        $resp = new \stdClass();
+
+        if ( $picture ) {
+            $urlPhoto = Storage::disk('digitalocean')->putFile('upload-photo-user', $picture, 'public');
+            $resp->url = $urlPhoto;
+            $resp->status = 201;
+            return response()->json($resp); 
+        } else {
+            $resp->url = 'El archivo no es valido.';
+            $resp->status = 404;
+            return response()->json($resp);  
+        }
+    }
+
+    public function removedPhotoProfile(Request $request){
+        $pathArchive = $request->get('urlPicture');
+        
+        Storage::disk('digitalocean')->delete($pathArchive);
+       
+        return response()->json('se eliminó correctamente', 201);
+    }
 }
