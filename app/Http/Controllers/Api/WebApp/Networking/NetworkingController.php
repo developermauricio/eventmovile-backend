@@ -106,7 +106,7 @@ class NetworkingController extends Controller
 
         $networking = $networking->map(function ($net) use ($user_id) {
             $user = $user_id == $net->creator_id ? $net->guest_id : $net->creator_id;
-            $user = User::select('name', 'lastname', 'id')
+            $user = User::select('name', 'lastname', 'id', 'pic')
                 ->where('id', $user)
                 ->first();
 
@@ -122,7 +122,7 @@ class NetworkingController extends Controller
         $chat = NetworkingWebApp::where('chat_id', $key)
             ->first();
 
-        $users = User::select('id', 'email', 'name', 'lastname')
+        $users = User::select('id', 'email', 'name', 'lastname', 'pic')
             ->where('id', $chat->creator_id)
             ->orWhere('id', $chat->guest_id)
             ->get();
@@ -170,7 +170,7 @@ class NetworkingController extends Controller
     public function getParticipants($idEvent)
     {
         $user_id = auth()->user()->id;
-        $users = User::select('id', 'name', 'lastname', 'online')->with([
+        $users = User::select('id', 'name', 'lastname', 'online', 'pic')->with([
             'requestSent' => function ($requestSend) use ($user_id) {
                 return $requestSend->select('id', 'status', 'guest_id')->where('creator_id', $user_id);
             },
