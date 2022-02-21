@@ -154,7 +154,8 @@ class AuthController extends Controller
         }
         
         try{
-            $credentials = $request->only('email','password');            
+            $credentials = $request->only('email','password');   
+            /* JWTAuth::attempt($credentials, ['exp' => Carbon\Carbon::now()->addDays(7)->timestamp]) */         
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(['error' => 'invalid_credentials 3'],401);
             }
@@ -353,8 +354,8 @@ class AuthController extends Controller
         //Si existe usuario
         $userVer = User::where('email', $request->email)->first();
         if (!$userVer) {
-            if (isset($toCreate['pic']))
-                $toCreate['pic'] = $this->convertSaveImageB64($toCreate['pic']);
+            /* if (isset($toCreate['pic']))
+                $toCreate['pic'] = $this->convertSaveImageB64($toCreate['pic']); */
             $user = User::create($toCreate);
         } else {
             $user = $userVer;
