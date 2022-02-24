@@ -122,7 +122,7 @@ class NetworkingController extends Controller
         $chat = NetworkingWebApp::where('chat_id', $key)
             ->first();
 
-        $users = User::select('id', 'email', 'name', 'lastname')
+        $users = User::select('id', 'email', 'name', 'lastname', 'pic')
             ->where('id', $chat->creator_id)
             ->orWhere('id', $chat->guest_id)
             ->get();
