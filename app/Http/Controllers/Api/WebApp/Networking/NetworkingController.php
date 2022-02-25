@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\WebApp\Networking;
 
 use App\Http\Controllers\Controller;
 use App\NetworkingWebApp;
+use App\Traits\response;
 use App\User;
 use App\WebAppMessage;
 use Illuminate\Http\Request;
@@ -172,15 +173,35 @@ class NetworkingController extends Controller
         $user_id = auth()->user()->id;
         $users = User::select('id', 'name', 'lastname', 'online', 'pic')->with([
             'requestSent' => function ($requestSend) use ($user_id) {
-                return $requestSend->select('id', 'status', 'guest_id')->where('creator_id', $user_id);
+                return $requestSend->select('id', 'status', 'guest_id', 'chat_id')->where('creator_id', $user_id);
             },
             'requestReceived' => function ($requestSend) use ($user_id) {
-                return $requestSend->select('id', 'status', 'creator_id')->where('guest_id', $user_id);
+                return $requestSend->select('id', 'status', 'creator_id', 'chat_id')->where('guest_id', $user_id);
             }
         ])->whereHas('eventUsers', function ($q) use ($idEvent) {
             return $q->where('event_id', $idEvent);
         })->where('id', '<>', $user_id)->paginate(50);
 
         return response()->json($users);
+    }
+
+    public function onCall($id){
+
+        $user = User::where('id', $id)->update([
+           'call' => '1'
+        ]);
+        return response()->json('El usuario se actualizó correctamente');
+    }
+    public function outCall($id){
+
+        $user = User::where('id', $id)->update([
+           'call' => '0'
+        ]);
+        return response()->json('El usuario se actualizó correctamente');
+    }
+
+    public function userCallAvailable($id){
+        $user = User::select('call')->where('id', $id)->first();
+        return response()->json($user->call);
     }
 }

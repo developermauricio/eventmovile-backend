@@ -30,7 +30,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     Route::get('listActivitiesEventOnSchedule/{event}','Api\Event\EventController@getActivitiesEventOnSchedule');  
     //end agenda
     // begin  album
-    Route::get('album/{event}','Api\WebApp\Album\AlbumController@getIdAlbum');  
+    Route::get('album/{event}','Api\WebApp\Album\AlbumController@getIdAlbum');
     Route::get('listPhotos/{event}/{user}','Api\WebApp\Album\AlbumController@getPhotos');  
     Route::post('uploadPhoto','Api\WebApp\Album\AlbumController@createPhoto');      
     Route::post('interaction','Api\WebApp\Album\AlbumController@interactionPhoto');      
@@ -514,6 +514,11 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('/get-data-gallery/{id}', 'Api\Gallery\GalleryController@getDataGallery');
     Route::get('/get-data-gallery-home/{id}', 'Api\Gallery\GalleryController@getDataGalleryHome');
     Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
+
+    //--/Networking+
+    Route::post('/on-call/{id}', 'Api\WebApp\Networking\NetworkingController@onCall');
+    Route::post('/out-call/{id}', 'Api\WebApp\Networking\NetworkingController@outCall');
+    Route::get('/user-call-available/{id}', 'Api\WebApp\Networking\NetworkingController@userCallAvailable');
 
     //--web app
     //--/login 
