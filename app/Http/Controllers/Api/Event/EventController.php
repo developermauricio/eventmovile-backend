@@ -349,11 +349,18 @@ class EventController extends Controller
     }
 
     public function eventUsers(Request $request){
-
-        $validate = EventUser::where('user_id', $request->user_id)->where('event_id', $request->event_id)->first();
+        Log::info('llega... request: ');
+        Log::info($request);
+        $validate = EventUser::where('user_id', $request->user_id)->where('event_id', $request->event_id)->first();        
         $user = User::where('id', $request->user_id)->first();
-        if(!$user->hasRole('guest'))
+        Log::info('validate: ');
+        Log::info($validate);
+        Log::info('user: ');
+        Log::info($user);
+
+        if(!$user->hasRole('guest')) {
             $user->assignRole('guest');
+        }            
 
         if(!$validate){
             $eventUser = EventUser::create([
@@ -438,6 +445,7 @@ class EventController extends Controller
         //Storage::disk('local')->put("DumpEventEmail.txt",  $cadena);
 
          $email = $this->sendEmail($user->email, $event->subject_email, $cadena);
+        
     }
     // public function sendEmailEvent($request){
         

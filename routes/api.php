@@ -188,7 +188,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
         Route::resource('typeQuestions','Api\Poll\TypeQuestionController');
         Route::post('postionQuestionPoll','Api\Poll\PollQuestionController@updatePosition')->middleware('permission:pollQuestions.update');
         
-        
+        /* Sondeo */
         Route::resource('probe','Api\Probe\ProbeController');
         Route::get('probe-questions-activity/{id}','Api\Probe\ProbeController@showProbes')->middleware('permission:pollQuestions.show');
         Route::resource('probe-questions','Api\Probe\ProbeQuestionController')->middleware('permission:pollQuestions');
@@ -350,6 +350,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
 
     Route::post('token-agora','Api\Agora\AgoraController@genToken');
     
+    /* Sondeo */
     Route::get('pollQuestionsEvent-wh/{id}','Api\Poll\PollQuestionController@showQuestionsEvent');
     Route::get('probe-questions-activity-wh/{id}','Api\Probe\ProbeController@showProbesPublic');
     Route::get('probe-questions-probe-wh/{id}','Api\Probe\ProbeQuestionController@showQuestions');
@@ -531,6 +532,8 @@ Route::group(['prefix' => 'v1'],function(){
     Route::post('/refresh-data-user', 'Api\User\UserController@getDataUser'); 
     Route::post('/upload-photo-user', 'Api\User\UserController@uploadPhotoProfile'); 
     Route::post('/remove-photo-user', 'Api\User\UserController@removedPhotoProfile'); 
+
+    Route::put('restorePassword/{user}', 'Api\Auth\AuthController@updatePassword');
     
     //--/detail event
     Route::post('validPathEvent','Api\Event\EventController@validPathEvent');

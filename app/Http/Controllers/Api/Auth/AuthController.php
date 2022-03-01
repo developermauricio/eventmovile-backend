@@ -102,7 +102,6 @@ class AuthController extends Controller
     
     public function login(Request $request)
     {
-
         $eventOk = false;
         $rules = [
             'email'    => 'required|email|exists:users,email',
@@ -110,17 +109,21 @@ class AuthController extends Controller
         ];
 
         $this->validate($request, $rules);
+
         $user = User::where('email', $request->email)->first();
+
         if ($request->eventId) {
             $event = Event::where('id', $request->eventId)->first();
-
             $eventUser = EventUser::where('user_id', $user->id)->where('event_id',$request->eventId)->first();
-            if (!$event || !$user || !$eventUser)
-                return $this->errorResponse('Unauthorized: Access is denied due to invalid credentials. 1', 401);            
+
+            if (!$event || !$user || !$eventUser) {
+                return $this->errorResponse('Unauthorized: Access is denied due to invalid credentials. 1', 401);    
+            }
             if ($event->password == $request->password) {
                 $eventOk = true;                
             } 
-        }        
+        }   
+
         if($eventOk){
             User::where('email', $request->email)->update(['online' => '1']);
             MQTT::publish('online_users_eventmovil', 'onlines users');
@@ -131,11 +134,13 @@ class AuthController extends Controller
             }else{
                 return $this->errorResponse('Unauthorized: Access is denied due to invalid credentials. 2', 401);
             }
-        }        
+        }   
+
         $user = Auth::user();
         //return json_encode($user);exit;
         $roles = $user->getRoleNames();        
         $ver = 0;
+
         foreach ($roles as $role) {
             if ($role == "Super admin") {
                 $ver = 1;
@@ -154,7 +159,7 @@ class AuthController extends Controller
         }
         
         try{
-            $credentials = $request->only('email','password');   
+            $credentials = $request->only('email','password');  
             /* JWTAuth::attempt($credentials, ['exp' => Carbon\Carbon::now()->addDays(7)->timestamp]) */         
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(['error' => 'invalid_credentials 3'],401);
@@ -486,6 +491,7 @@ class AuthController extends Controller
         $rules = ['password' => 'required|string'];
 
         $this->validate($request, $rules);
+        Log::info('ingreso password..');
         Log::info($request->all);
         if (isset($request->name)) {
             $user->name = $request->name;
