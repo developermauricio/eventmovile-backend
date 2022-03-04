@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\ProbeEvent;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 class ProbeController extends Controller
 {
     public function index()
@@ -19,7 +20,11 @@ class ProbeController extends Controller
 
     public function showProbes($id)
     {
+        Log::info('showProbes: ');
+        Log::info($id);
+
         if (!Auth::user()){
+            Log::info('Auth::user() ingreso');
             $probe = Probe::where('activity_id',$id)
             ->with('questions','answers')
             ->get();
@@ -27,6 +32,8 @@ class ProbeController extends Controller
         }
 
         $role = auth()->user()->getRoleNames()->first();
+        Log::info('role: ');
+        Log::info($role);
         
         if($role == "super admin" || $role == 'admin'){
             $probe = Probe::where('activity_id',$id)
@@ -39,6 +46,7 @@ class ProbeController extends Controller
             ->where('status','launched')
             ->with('questions','answers')
             ->get();
+        Log::info('llego al final..');
         return $this->showAll($probe);
     }
     

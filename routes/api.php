@@ -497,6 +497,11 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('ticketsEventExternal/{event}','Api\Ticket\TicketController@showTicketsEvent');
     Route::get('hallsExternal/{hall}','Api\Hall\HallController@show');
     Route::get('activityExternal/{activity}/{user_id?}','Api\Activity\ActivityController@show');
+    Route::get('eventChatext/{event_id}','Api\Event\EventController@getChatMessagesEvent');
+    Route::get('questionsForActivityExt/{activity}/{user}','Api\Activity\QuestionActivityController@questionsForActivity');
+    Route::get('probe-questions-activity-whExt/{id}','Api\Probe\ProbeController@showProbesPublic');
+    Route::post('token-agora','Api\Agora\AgoraController@genToken');
+
     //--/login
     Route::post('auth/basic', 'Api\Auth\AuthController@login')->name('login');
     Route::put('auth/killer', 'Api\Auth\AuthController@logoutjwt');    

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\PollQuestion;
 use App\PollAnswer;
+use Illuminate\Support\Facades\Log;
 class PollQuestionController extends Controller
 {
     public function index() {
@@ -24,7 +25,10 @@ class PollQuestionController extends Controller
 
     public function showQuestionsEvent($eventId)
     {
+        Log::info('showQuestionsEvent: ');
+        Log::info($eventId);
         if (!Auth::user()){
+            Log::info('showQuestionsEvent: ');
             $probeAnswer = PollQuestion::select('poll_questions.*', 'tq.name as type_question')
             ->where('event_id', $eventId)
             ->join('type_questions as tq', 'tq.id', '=', 'poll_questions.type_question_id')
