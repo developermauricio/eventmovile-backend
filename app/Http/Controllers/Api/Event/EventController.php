@@ -729,15 +729,34 @@ class EventController extends Controller
     }
     // query desc para traer los ultimos 100 y despues los ordenamos en front
     public function getChatMessagesEvent($event_id){
-        $messages = DB::table('event_chats as ec')
-        ->select('ec.*', 'u.name', 'u.lastname')
-        ->where('event_id', $event_id)
-        ->join('users as u', 'u.id', '=', 'ec.user_id')
-        ->orderBy('created_at','desc')
-        ->take(100)
-        ->get();
+        // $messages = DB::table('event_chats as ec')
+        // ->select('ec.*', 'u.name', 'u.lastname', 'u.pic')
+        // ->where('event_id', $event_id)
+        // ->join('users as u', 'u.id', '=', 'ec.user_id')
+        // ->orderBy('created_at','desc')
+        // ->take(100)
+        // ->get();
 
-        return $this->showAll($messages, 200);
+        // return $this->showAll($messages, 200);
+        
+        $chatMessages = EventChat::where('event_id', $event_id)->with('user')->latest('created_at')->paginate(10);
+        $finalData = collect();
+        foreach ($chatMessages as $messages) {
+            $finalData->push([
+                "id" => $messages->id,
+                "event_id" => $messages->event_id,
+                "user_id" => $messages->user->id,
+                "pic" => $messages->user->pic,
+                "name" => $messages->user->name,
+                "lastname" => $messages->user->lastname,
+                "message" => $messages->message,
+                "created_at" => $messages->created_at,
+                "updated_at" => $messages->updated_at
+
+            ]);
+        }
+        return response()->json(["data" => $finalData, "lastPage" => $chatMessages->lastPage()]);
+        // return $this->showAll($finalData, 200);
     }
 
     /**

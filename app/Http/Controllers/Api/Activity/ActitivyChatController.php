@@ -44,15 +44,32 @@ class ActitivyChatController extends Controller
     // query desc para traer los ultimos 100 y despues los ordenamos en front
     public function activityMessages($activity){
 
-        $messages = DB::table('activity_chats as ac')
-            ->select('ac.*', 'u.name', 'u.lastname')
-            ->where('activity_id', $activity)
-            ->join('users as u', 'u.id', '=', 'ac.user_id')
-            ->orderBy('created_at', 'desc')
-            ->take(100)
-            ->get();
+        // $messages = DB::table('activity_chats as ac')
+        //     ->select('ac.*', 'u.name', 'u.lastname')
+        //     ->where('activity_id', $activity)
+        //     ->join('users as u', 'u.id', '=', 'ac.user_id')
+        //     ->orderBy('created_at', 'desc')
+        //     ->take(100)
+        //     ->get();
+        $chatMessages = ActivityChat::where('activity_id', $activity)->with('user')->latest('created_at')->paginate(10);
+        $finalData = collect();
+        foreach ($chatMessages as $messages) {
+            $finalData->push([
+                "id" => $messages->id,
+                "event_id" => $messages->event_id,
+                "user_id" => $messages->user->id,
+                "pic" => $messages->user->pic,
+                "name" => $messages->user->name,
+                "lastname" => $messages->user->lastname,
+                "message" => $messages->message,
+                "created_at" => $messages->created_at,
+                "updated_at" => $messages->updated_at
 
-        return $this->showAll($messages, 200);
+            ]);
+        }
+        return response()->json(["data" => $finalData, "lastPage" => $chatMessages->lastPage()]);
+
+        // return $this->showAll($finalData);
 
     }
 }

@@ -13,4 +13,18 @@ class Hall extends Model
     public function activities1(){
         return $this->hasMany(Activity::class,'event_id', 'event_id');
     }
+    
+    static function activitiesHall($hallActivities){
+        $hallActivities = json_decode($hallActivities);
+        $activitiesHall = collect();
+        // var_dump(hallActivities);
+        foreach($hallActivities as $activities){
+           $activityFirst = Activity::where('id', $activities)->first();
+           $activitiesHall->push($activityFirst);
+
+        }
+
+        return $activitiesHall;
+
+    }
 }

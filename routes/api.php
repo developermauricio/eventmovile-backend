@@ -52,7 +52,15 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
 
     //begin mapa
     Route::get('getMapa/{event}','Api\Event\EventController@getMapaEvent');  
-    //end mapa
+    //end mapa  app/Http/Controllers/Api/WebApp/Attendance/AttendanceController.php
+
+    Route::get('get-user-register/{idEvent}', 'Api\WebApp\Attendance\AttendanceController@getUserRegisterEvent');
+    Route::get('get-data-user/{user_id}', 'Api\WebApp\Attendance\AttendanceController@getDataUserForID');
+    Route::put('update-data-user', 'Api\WebApp\Attendance\AttendanceController@updateInfoUser');
+    Route::put('update-data-register', 'Api\WebApp\Attendance\AttendanceController@updateDataRegister');
+    Route::get('get-data-register/{user}/{event}', 'Api\WebApp\Attendance\AttendanceController@getDataRegister');
+    Route::get('get-all-attendance/{event_id}', 'Api\WebApp\Attendance\AttendanceController@getAllAttendance');
+    Route::post('register-attendance','Api\WebApp\Attendance\AttendanceController@createRegisterAttendance');    
     /** end web app */    
 
     
@@ -187,6 +195,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
         Route::get('exportPoll/{event_id}','Api\Poll\PollAnswerController@exportPoll')->middleware('permission:pollAnswers.show');
         Route::resource('typeQuestions','Api\Poll\TypeQuestionController');
         Route::post('postionQuestionPoll','Api\Poll\PollQuestionController@updatePosition')->middleware('permission:pollQuestions.update');
+       
         
         /* Sondeo */
         Route::resource('probe','Api\Probe\ProbeController');
@@ -522,10 +531,17 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('/get-data-gallery-home/{id}', 'Api\Gallery\GalleryController@getDataGalleryHome');
     Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
 
+    //--/Agenda web app
+    Route::get('/get-schedule-event/{event}', 'Api\WebApp\Schedule\ScheduleController@getSchedule')->name('get.data.schedule');
+    Route::get('/get-count-days-schedule/{event}', 'Api\WebApp\Schedule\ScheduleController@getCountDaysSchedule')->name('get.data.count.days.schedule');
+
     //--/Networking+
     Route::post('/on-call/{id}', 'Api\WebApp\Networking\NetworkingController@onCall');
     Route::post('/out-call/{id}', 'Api\WebApp\Networking\NetworkingController@outCall');
     Route::get('/user-call-available/{id}', 'Api\WebApp\Networking\NetworkingController@userCallAvailable');
+
+    //--/Guardar encuesta+
+    Route::post('poll-save-webapp', 'Api\WebApp\Poll\PollController@pollSaveWebApp')->name('poll.save.webapp');
 
     //--web app
     //--/login 
