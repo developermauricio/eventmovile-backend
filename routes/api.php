@@ -542,6 +542,10 @@ Route::group(['prefix' => 'v1'],function(){
 
     //--/Guardar encuesta+
     Route::post('poll-save-webapp', 'Api\WebApp\Poll\PollController@pollSaveWebApp')->name('poll.save.webapp');
+    
+    //--/Guardar probe
+    Route::post('probe-save-webapp', 'Api\WebApp\Probe\ProbeController@probeSaveWebApp')->name('probe.save.webapp');
+    Route::get('probe-verify-user-webapp/{id}', 'Api\WebApp\Probe\ProbeController@verifyUserProbe')->name('probe.verify.webapp');
 
     //--web app
     //--/login 
