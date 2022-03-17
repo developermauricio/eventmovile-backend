@@ -532,6 +532,10 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
 
     //--/Agenda web app
+    Route::get('/get-countries-event', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCountries')->name('get.data.countries');
+    Route::get('/get-cities-event/{code}', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCities')->name('get.data.cities');
+
+    //--/Agenda web app
     Route::get('/get-schedule-event/{event}', 'Api\WebApp\Schedule\ScheduleController@getSchedule')->name('get.data.schedule');
     Route::get('/get-count-days-schedule/{event}', 'Api\WebApp\Schedule\ScheduleController@getCountDaysSchedule')->name('get.data.count.days.schedule');
 
