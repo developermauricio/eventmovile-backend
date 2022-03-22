@@ -25,8 +25,11 @@ class SpeakerController extends Controller
 
     public function store(Request $request){
 
+        $country = json_decode($request->country_id);
+
         $rules = [
             'name'              => 'required',
+            'country_id'        => 'required',
             'sort_description'  => 'required',
             'pic'               => 'required|file' 
         ];
@@ -48,6 +51,7 @@ class SpeakerController extends Controller
             'name'              => $request->name,
             'sort_description'  => $request->sort_description,
             'pic'               => $nameFile,
+            'country_id'        => $country->id,
         ]);
 
         return $this->successResponse(['data'=> $speaker, 'message'=>'Speaker Created'], 201);

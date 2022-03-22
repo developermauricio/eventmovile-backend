@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     protected $fillable = [
-        'name', 'description', 'city_id', 'start_date', 'end_date', 'friendly_url', 'duration_minutes', 
+        'name', 'description', 'city_id', 'address', 'city_event_id','start_date', 'end_date', 'friendly_url', 'duration_minutes', 
         'company_id', 'message_email', 'subject_email', 'code_streaming', 'password', 'actived',
         'event_type_id', 'people_limit', 'image_on_register', 'domain_external', 'unique_login',
         'req_payment', 'payment_on_login', 'payment_name','req_chat','req_networking', 'req_make_question',
@@ -38,6 +38,10 @@ class Event extends Model
     public function city()
     {
         return $this->belongsTo('App\City', 'city_id', 'id');
+    }
+    public function city_event()
+    {
+        return $this->belongsTo('App\CityEvent', 'city_event_id', 'id');
     }
 
     public function type()

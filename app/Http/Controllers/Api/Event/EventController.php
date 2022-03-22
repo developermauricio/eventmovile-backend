@@ -120,6 +120,7 @@ class EventController extends Controller
             ->with('company:id,name')
             ->with('city:id,name')
             ->with('style')
+            ->with('city_event.country_event')
             ->with('type:id,name')
             ->with('tickets')
             ->with('payment')
@@ -136,11 +137,15 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        // dd(json_encode($request->citySelect));
+        $city = json_decode($request->city_event_id);
                 
         $rules = [
             'name'              => 'required',
             'event_type_id'     => 'required|exists:event_types,id',
             'description'       => 'required',
+            'address'           => 'required',
+            'city_event_id'     => 'required',
             'city_id'           => 'required|exists:cities,id',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date',
@@ -175,6 +180,8 @@ class EventController extends Controller
             //'start_hour' => $request->start_hour,
             //'end_hour' => $request->end_hour,
             'city_id' => $request->city_id,
+            'city_event_id' => $city->id,
+            'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
             'company_id' => $request->company_id,
@@ -256,12 +263,15 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         Log::info('entro update');
+        $city = json_decode($request->city_event_id);
         //
         $rules = [
             'name'              => 'required',
             'event_type_id'     => 'required|exists:event_types,id',
             'description'       => 'required',
             'city_id'           => 'required|exists:cities,id',
+            'address'           => 'required',
+            'city_event_id'     => 'required',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date',
             'friendly_url'      => 'required',
@@ -296,6 +306,8 @@ class EventController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,            
             'city_id' => $request->city_id,
+            'city_event_id' => $city->id,
+            'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
             'company_id' => $request->company_id,
@@ -390,6 +402,8 @@ class EventController extends Controller
         if(empty($request->message_email_1)==false && empty($request->message_email_2)==false && empty($request->message_email_3)==false && empty($request->message_email_4)==false && empty($request->message_email_5)==false && empty($request->message_email_6)==false && empty($request->message_email_7)==false){
             $message_email = '{"message_email_1":"'.$request->message_email_1.'","message_email_2":"'.$request->message_email_2.'","message_email_3":"'.$request->message_email_3.'","message_email_4":"'.$request->message_email_4.'","message_email_5":"'.$request->message_email_5.'","message_email_6":"'.$request->message_email_6.'","message_email_7":"'.$request->message_email_7.'"}';
         }
+        Log::debug("message");
+        Log::debug($message_email);
 
         //creacion de invitacion
         $activities = Activity::where('event_id', $request->event_id)->get();
@@ -428,6 +442,9 @@ class EventController extends Controller
                 $qr = $urlInv->id;
             }
         }
+
+        Log::debug("event...");
+        Log::debug($event);
     
         $message1 = str_replace("*u", $user->name, $event->message_email);
         $message2 = str_replace("*c", $event->password, $message1);
@@ -439,11 +456,11 @@ class EventController extends Controller
         }else{ 
             $tracking = false;
         }
-        $format = $this-> formatEmailEvent($message, $event, $qr, $tracking, $hall, $message_email);
+        $format = $this-> formatEmailEvent($message, $event, $qr, $tracking, $hall, $message_email);    
         $cadena = preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, htmlentities($format['template']));
         $cadena = html_entity_decode($cadena);
         //Storage::disk('local')->put("DumpEventEmail.txt",  $cadena);
-
+       
          $email = $this->sendEmail($user->email, $event->subject_email, $cadena);
         
     }
@@ -1054,9 +1071,14 @@ class EventController extends Controller
             ->select('s.id as speaker_id',
                 's.name as speaker_name',
                 's.sort_description as speaker_description',
-                's.pic as speaker_photo')
+                's.pic as speaker_photo',
+                's.country_id as country',
+                'ce.name', 'ce.flag'
+                )
+                ->join('country_events as ce', 'ce.id', '=', 's.country_id')
                 ->join('activity_speakers as as2','s.id', '=', 'as2.speaker_id')
                 ->join('activities as a2','a2.id', '=', 'as2.activity_id')
+                // ->select('ce.name')
                 ->where('a2.event_id', $eventId)
                 ->distinct() //TODO Cambios necesatios agregar esta linea para consultar spekers no repetidos 
                 ->get();

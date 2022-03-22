@@ -60,7 +60,11 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     Route::put('update-data-register', 'Api\WebApp\Attendance\AttendanceController@updateDataRegister');
     Route::get('get-data-register/{user}/{event}', 'Api\WebApp\Attendance\AttendanceController@getDataRegister');
     Route::get('get-all-attendance/{event_id}', 'Api\WebApp\Attendance\AttendanceController@getAllAttendance');
-    Route::post('register-attendance','Api\WebApp\Attendance\AttendanceController@createRegisterAttendance');    
+    Route::post('register-attendance','Api\WebApp\Attendance\AttendanceController@createRegisterAttendance');   
+    
+    Route::post('create-question-event','Api\WebApp\Event\QuestionEventController@createQuestionEvent');   
+    Route::get('get-question-event/{event}/{user}', 'Api\WebApp\Event\QuestionEventController@getQuestionForEvent');
+
     /** end web app */    
 
     

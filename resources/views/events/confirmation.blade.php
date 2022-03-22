@@ -125,6 +125,21 @@
                     </table>
                   </td>
                 </tr>
+                <!--  TODO: ruta de la web app -->
+                <tr>  
+                  <td class="content-block">
+                    @if($event->req_web_app == 1)
+                      <center>
+                        <a href="{{env('WEBAPP')}}{{$event->wa_path_value}}" class="btn-primary" style="color: {{$event->style['email_btn_text_color']}};  background-color:{{$event->style['email_btn_color']}}; ">
+                          <button style="background-color:{{$event->style['email_btn_color']}}; color:{{$event->style['email_btn_text_color']}};padding: 10px 20px;
+                            width: 30%; max-width: 200px; height: 40px; border:none; border-radius: 5px; ">                            
+                            Ir a la WebApp                         
+                          </button>
+                        </a>
+                      </center>                      
+                    @endif
+                  </td>
+                </tr>
                 <tr>
                   <td class="content-block">
                     @if($qr != false)
