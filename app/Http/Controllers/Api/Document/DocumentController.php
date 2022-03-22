@@ -145,7 +145,11 @@ class DocumentController extends Controller
             $explode = explode(".", $nameFile);
             $nameFile = $explode[0]."_".$request->model_type."_".$request->model_id."_".$number.".".$explode[1];
             
-            Storage::disk('local')->put($nameFile,  \File::get($file));
+            $path = Storage::disk('public')->put('/documents/'.$nameFile,  \File::get($file));
+
+            // $path = Storage::disk('public')->put('documents', $nameFile , 'public');
+            $urlFinal = '/storage/documents/'.$nameFile;
+            $nameFile = $urlFinal;
 
         }else{
             $nameFile = $request->url;
