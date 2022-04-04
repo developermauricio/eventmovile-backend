@@ -39,6 +39,8 @@ trait formatRegistrationEmail{
 
     public function formatEmailEvent($message, $event, $qr, $tracking, $halls= null,$message_email=null) {
         if($qr != false){
+            // cambiar la ruta donde se guarda el qr
+            // $path = Storage::disk('public')->put('/documents/'.$nameFile,  \File::get($file));
             QRCode::text($qr)->setSize(15)->setOutfile('../storage/storage/qr-code'.$qr.'.png')->png();
         }
 

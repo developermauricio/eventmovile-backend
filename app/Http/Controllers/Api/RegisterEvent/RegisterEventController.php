@@ -212,6 +212,7 @@ class RegisterEventController extends Controller
                 ]);
 
                 if($qr){
+                    //TODO: modificar la generacion del qr, con los datos del usuario y el evento
                     $qr = $urlInv->id;
                 }
                 if($token == 0){

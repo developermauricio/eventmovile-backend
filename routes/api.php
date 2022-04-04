@@ -525,6 +525,9 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('eventTypesExt', 'Api\Event\EventTypeController@index'); 
     Route::get('peopleLimit/{event}','Api\Event\EventController@getPeopleLimit');
 
+    //--/Califiaciones por actividad
+    Route::post('/save-rate-activity', 'Api\WebApp\RateActivity\RateActivityController@saveRateActivity');
+
     //--/Galleria web app
     Route::post('/upload-image-gallery', 'Api\Gallery\GalleryController@uploadImage');
     Route::post('/removed-gallery-picture', 'Api\Gallery\GalleryController@removedImage');
