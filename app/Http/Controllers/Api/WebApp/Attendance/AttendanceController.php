@@ -31,14 +31,14 @@ class AttendanceController extends Controller
     }
 
     public function updateInfoUser( Request $request ) {
-        Log::debug('user request: ');
-        Log::debug($request);        
+        //Log::debug('user request: ');
+        //Log::debug($request);        
         $user = User::findOrFail( $request->user_id )->update([
             "name" => $request->name,
             "lastname" => $request->lastname,
         ]);
-        Log::debug('user update: ');
-        Log::debug($user);
+        //Log::debug('user update: ');
+        //Log::debug($user);
 
         return response()->json($user);
     }    
@@ -57,8 +57,8 @@ class AttendanceController extends Controller
 
         $userAttendance = Attendance::where('user_id', $request->user_id)->
             where('event_id', $request->event_id)->first();
-        Log::debug('userAttendance');
-        Log::debug($userAttendance);
+        //Log::debug('userAttendance');
+        //Log::debug($userAttendance);
         if ( $userAttendance ) {
             return response()->json(['status' => 'fail', 'msg' => 'registro fallido el usuario ya se encuentra registrado.']);         
         }

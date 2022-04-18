@@ -11,6 +11,7 @@
         "php": "^7.2.5|^8.0",
         "beyondcode/laravel-websockets": "^1.7",
         "doctrine/dbal": "^2.10",
+        "dompdf/dompdf": "^1.2",
         "fideloper/proxy": "^4.2",
         "firebase/php-jwt": "^5.4",
         "fruitcake/laravel-cors": "^2.0",
