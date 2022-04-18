@@ -383,7 +383,8 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
         if($request->action == "gen-certificate" && $request->route == "certificate")
             return view('download');  
         else
-            return view('editor');
+            //return view('editor');
+            return view('certificate');
         });
     Route::get('editor/{tipo}/{filename?}/{ruta1?}/{ruta2?}', function ($tipo,$filename,$ruta1 = null,$ruta2 = null)
     {
@@ -489,6 +490,23 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
 
 
 Route::group(['prefix' => 'v1'],function(){    
+
+    // Management certificate
+    Route::get('view-certificate/{event}', 'Api\Certificate\CertificateManagementController@viewCertificate');
+    Route::get('download-certificate/{event}/{user?}', 'Api\Certificate\CertificateManagementController@downloadCertificate');
+    Route::get('get-certificate-event/{event}', 'Api\Certificate\CertificateManagementController@getCertifictesForEvent');
+    Route::post('save-certificate', 'Api\Certificate\CertificateManagementController@saveCertificate');
+    Route::post('add-images-certificate', 'Api\Certificate\CertificateManagementController@saveAddImage');
+    Route::post('remove-images-certificate', 'Api\Certificate\CertificateManagementController@removeAddImage');
+
+    Route::get('certificate-prueba', function () {
+        return view('certificate');
+        /* if($request->action == "gen-certificate" && $request->route == "certificate")
+            return view('download');  
+        else
+            return view('certificate');
+        } */
+    });
 
     ///Auth not necessary
     Route::post('payment/{type_wallet}','Api\Payment\PaymentController@store');   
