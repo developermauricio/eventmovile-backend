@@ -306,7 +306,7 @@ class EventController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,            
             'city_id' => $request->city_id,
-            'city_event_id' => $city->id,
+            'city_event_id' => $city === null || $city === '' ? null : $city->id,
             'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
