@@ -491,6 +491,18 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
 
 Route::group(['prefix' => 'v1'],function(){    
 
+    // Managent Slider logos   
+    Route::put('update-slider-logos', 'Api\WebApp\SliderLogos\SliderLogosController@updateStylesLogos');
+    Route::get('list-logos/{event}', 'Api\WebApp\SliderLogos\SliderLogosController@getAllSliderLogos');
+    Route::post('create-item-logo', 'Api\WebApp\SliderLogos\SliderLogosController@createNewLogo');
+    Route::delete('delete-item-logo/{id}', 'Api\WebApp\SliderLogos\SliderLogosController@removeItemLogo');
+
+    // Management On Demand  
+    Route::get('on-demand/{event}', 'Api\WebApp\Ondemand\OnDemandController@getAllOnDemandForIdevent');
+    Route::post('create-on-demand', 'Api\WebApp\Ondemand\OnDemandController@createNewOndemand');
+    Route::put('update-on-demand', 'Api\WebApp\Ondemand\OnDemandController@updateItemOnDemand');
+    Route::delete('delete-on-demand/{id}', 'Api\WebApp\Ondemand\OnDemandController@removeItemOnDemand');
+
     // Management certificate
     Route::get('view-certificate/{event}', 'Api\Certificate\CertificateManagementController@viewCertificate');
     Route::get('download-certificate/{event}/{user?}', 'Api\Certificate\CertificateManagementController@downloadCertificate');
@@ -556,12 +568,23 @@ Route::group(['prefix' => 'v1'],function(){
     Route::get('/get-data-gallery-home/{id}', 'Api\Gallery\GalleryController@getDataGalleryHome');
     Route::get('/get-data-gallery-like/{id}/{user}', 'Api\Gallery\GalleryController@getDatalLikeGallery');
 
-    //--/Agenda web app
+    //--/Ciudades
     Route::get('/get-countries-event', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCountries')->name('get.data.countries');
     Route::get('/get-cities-event/{code}', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCities')->name('get.data.cities');
 
+    //--/Notificaciones por evento
+    Route::get('/get-list-notifications-event/{id}', 'Api\Notification\NotificationController@getNotifications');
+    Route::post('/save-notification-news', 'Api\Notification\NotificationController@saveNotifications');
+    Route::get('/get-notification-users/{event_id}/{user_id}', 'Api\Notification\NotificationController@getNotificationsUser');
+    Route::post('/notification-read', 'Api\Notification\NotificationController@readNotification');
+
+    //--/Actividades Favoritas
+    Route::get('/get-list-favorites-activities/{event_id}/{user_id}', 'Api\WebApp\Favorites\FavoritesController@getFavoritesActivities');
+    Route::post('/save-favorite-activity', 'Api\WebApp\Favorites\FavoritesController@saveIsFavorite');
+    Route::post('/remove-favorite-activity/{id}', 'Api\WebApp\Favorites\FavoritesController@removeIsFavorite');
+
     //--/Agenda web app
-    Route::get('/get-schedule-event/{event}', 'Api\WebApp\Schedule\ScheduleController@getSchedule')->name('get.data.schedule');
+    Route::get('/get-schedule-event/{event}/{user_id}', 'Api\WebApp\Schedule\ScheduleController@getSchedule')->name('get.data.schedule');
     Route::get('/get-count-days-schedule/{event}', 'Api\WebApp\Schedule\ScheduleController@getCountDaysSchedule')->name('get.data.count.days.schedule');
 
     //--/Networking+

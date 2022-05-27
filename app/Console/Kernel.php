@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('schedule:notification_news')->everyMinute()->withoutOverlapping();
         $schedule->command('TRANSACTION:PAYU')->cron('* */1 * * *');
         // $schedule->command('inspire')->hourly();
         $schedule->command('verify-meetings')->everyMinute()

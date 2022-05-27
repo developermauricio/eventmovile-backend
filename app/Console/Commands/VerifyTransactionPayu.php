@@ -97,7 +97,7 @@ class VerifyTransactionPayu extends Command
                                     }
                                 }
                             }
-                            Log::info($status); 
+                            //Log::info($status); 
 
                         }
                         
@@ -136,17 +136,17 @@ class VerifyTransactionPayu extends Command
             $body = json_decode($request->getBody(), true);
             if ($body && $body['code'] == 'SUCCESS' && $body['result'] && $body['result']['payload'] != null) {
                 if(isset($body['result']['payload'][0])){
-                    Log::Info($body['result']['payload'][0]['transactions'][0]['transactionResponse']['state']);
+                    //Log::Info($body['result']['payload'][0]['transactions'][0]['transactionResponse']['state']);
 
                 }else{
-                    LOg::info('No existe array');
+                    Log::info('No existe array');
                 }
                 
             }else{
                 Log::info('No hay informacion');
             }
         } catch (\Throwable $th) {
-            Log::info('Error consumir datos mrchipa: ' . $th);
+            //Log::info('Error consumir datos mrchipa: ' . $th);
         }
     }
 
@@ -178,11 +178,11 @@ class VerifyTransactionPayu extends Command
             $request = $client->post('https://sandbox.api.payulatam.com/reports-api/4.0/service.cgi', ['json' => $data]);
             $body = json_decode($request->getBody(), true);
             if ($body['code'] == 'SUCCESS' && $body['result']['payload'] != null) {
-                Log::Info($body['result']['payload'][0]['transactions'][0]['transactionResponse']);
+                //Log::Info($body['result']['payload'][0]['transactions'][0]['transactionResponse']);
             }
             // Log::Info($body['result']['payload'][0]['transactions'][0]['transactionResponse']);
         } catch (\Throwable $th) {
-            Log::info('Error consumir datos mrchipa: ' . $th);
+            //Log::info('Error consumir datos mrchipa: ' . $th);
         }
     }
 }

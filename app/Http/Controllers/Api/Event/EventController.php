@@ -22,6 +22,7 @@ use App\EventStyle;
 use App\PaymentGateway;
 use App\UrlInvitation;
 use App\Album;
+use App\ContentOnDemand;
 use App\Traits\formatRegistrationEmail;
 use App\Traits\sendEmail;
 use Illuminate\Support\Facades\Log;
@@ -137,7 +138,8 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        // dd(json_encode($request->citySelect));
+        //Log::info($request);           
+        //dd("llego aqui....");
         $city = json_decode($request->city_event_id);
                 
         $rules = [
@@ -222,6 +224,9 @@ class EventController extends Controller
             'wa_req_feria_comercial' => $request->wa_req_feria_comercial,
             'wa_req_mapa' => $request->wa_req_mapa,
             'wa_mapa_value' => $mapa,
+            'url_form_register' => $request->url_form_register,
+            'url_certificate' => $request->url_certificate,
+            'on_demand' => $request->on_demand,
         );          
         $event = Event::create($toSave);        
         //si requiere webapp se crea album asociado al event}
@@ -240,7 +245,26 @@ class EventController extends Controller
             $payment = PaymentGateway::create($toSave);
         }
 
+        if (isset($request->on_demand) && $request->on_demand == 1) {
+            $listOnDemand = json_decode($request->list_on_demand);
+            if ( $listOnDemand ) {
+                // aqui guardamos los datos de ON Demand 
+                $this->createContentOnDemand( $listOnDemand, $event->id );
+            }
+        }
+
         return $this->successResponse(['data'=> $event, 'message'=>'Event Created'], 201);
+    }
+
+    public function createContentOnDemand( $listOnDemand, $event_id ) {
+        foreach ($listOnDemand as $item) {
+            $newOnDemand = ContentOnDemand::create([
+                'title_video' => $item->title,
+                'iframe_video' => $item->iframe,
+                'description_video' => $item->description ? $item->description : '--',
+                'event_id' => $event_id,
+            ]);
+        }
     }
 
     public function saveFile($pic, $type, $name){
@@ -337,6 +361,9 @@ class EventController extends Controller
             'wa_req_feria_comercial' => $request->wa_req_feria_comercial,
             'wa_req_mapa' => $request->wa_req_mapa,
             'wa_mapa_value' => $mapa,
+            'url_form_register' => $request->url_form_register,
+            'url_certificate' => $request->url_certificate,
+            'on_demand' => $request->on_demand,
         );                  
         DB::table('events')->where('id',$event->id)->update($toSave);   
              

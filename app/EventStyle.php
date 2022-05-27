@@ -18,7 +18,7 @@ class EventStyle extends Model
         'section_div_first_color', 'section_div_second_color', 'link_facebook', 'link_instagram', 'link_twitter',
         'section_banner_register', 'email_img_logo', 'email_img_banner', 'email_color_background', 'email_btn_color',
         'email_btn_text_color', 'email_text_color', 'email_titles_color', 'email_text_font', 'email_titles_font',
-        'wa_banner_one','wa_banner_two'
+        'wa_banner_one','wa_banner_two', 'slider_logos'
     ];
 
     public function homeTitlesFont()

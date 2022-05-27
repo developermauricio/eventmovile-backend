@@ -54,7 +54,7 @@ class HelperApp{
                 $status = 'NULL';
             }
         } catch (\Throwable $th) {
-            Log::info('ERROR_CODE EN referenceCode=' . $referenceCode . ':' . $th);
+            //Log::info('ERROR_CODE EN referenceCode=' . $referenceCode . ':' . $th);
             $status = 'ERROR_CODE';
         }
         $data['status']=$status;  

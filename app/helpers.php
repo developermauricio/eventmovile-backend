@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class HelperApp{
+class HelperApp2{
     public function helper_validate_payu($url, $apiKey, $apiLogin, $referenceCode)
     {
         $status = 'FALSE';
@@ -54,7 +54,7 @@ class HelperApp{
                 $status = 'NULL';
             }
         } catch (\Throwable $th) {
-            Log::info('ERROR_CODE EN referenceCode=' . $referenceCode . ':' . $th);
+            //Log::info('ERROR_CODE EN referenceCode=' . $referenceCode . ':' . $th);
             $status = 'ERROR_CODE';
         }
         $data['status']=$status;  

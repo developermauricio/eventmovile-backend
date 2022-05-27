@@ -13,6 +13,10 @@ class Activity extends Model
         'guests_limit', 'type_activity_id', 'mode_id', 'pic', 'pic_banner','voice_participation_check','onDemand', 'payment'
     ];
 
+    public function favoriteActivities(){
+        return $this->hasOne(FavoriteActivities::class, 'activies_id');
+    }
+
     public function type_activity() {
         return $this->belongsTo('App\TypeActivity', 'type_activity_id', 'id');
     }
@@ -28,6 +32,15 @@ class Activity extends Model
     
     public function event() {
         return $this->belongsTo('App\Event', 'event_id');
+    }
+
+    public function isFavorite($user)
+    {
+        return $this->favoriteActivities()->where('user_id', $user)->exists();
+    }
+    public function isFavoriteId($user)
+    {
+        return $this->favoriteActivities()->where('user_id', $user)->first();
     }
 
     static function activitiesHall($hallActivities, $event){

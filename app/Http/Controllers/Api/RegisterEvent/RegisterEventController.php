@@ -21,6 +21,7 @@ use App\UrlInvitation;
 use App\Traits\sendEmail;
 use App\Traits\formatRegistrationEmail;
 use Firebase\JWT\JWT;
+use Illuminate\Support\Facades\Log;
 
 class RegisterEventController extends Controller
 {
@@ -95,13 +96,14 @@ class RegisterEventController extends Controller
         return $this->successResponse(['data' => $registerEvent, 'message' => 'Field Deleted'], 201);
     }
 
-    public function importUser(Request $request){
+    public function importUser( Request $request ) {        
         $hall= null;
         $message_email = '{"message_email_1":"Registro exito","message_email_2":"Virtual / Presencial","message_email_3":"Ir al sitio del evento","message_email_4":"Salas","message_email_5":"Inicia/", "message_email_6":"Termina/", "message_email_7":"Añadir a calendario"}';
         //data user
         $user = $request->data;
         //Find event
         $event = Event::with('style')->findOrFail($request->event_id);
+                
         // Get Halls of the event
         if(isset($request->event_id)){
             $hall=Hall::where([['event_id','=',$request->event_id],['hall_type_id','=', 2]])->get();
@@ -152,7 +154,8 @@ class RegisterEventController extends Controller
         try{
             $userCreate = User::where('email', $user['email'])->first();
             if(!isset($userCreate->id)){
-                $token= Str::random(10);
+                // TODO: el password debe ser del evento... corregir 
+                $token = $event->password ? $event->password : Str::random(10);
                 $userCreate = User::create([
                     "email" => $user['email'],
                     "name" => $user['name'],
@@ -224,10 +227,13 @@ class RegisterEventController extends Controller
                 $message = str_replace("*e", $event->name, $message1);
     
                 $message = $message." ".$tokenTxt;
-                            
-                $format = $this-> formatEmailEvent($message, $event, $qr, $eventUser->id, $hall, $message_email);
-    
-                $email = $this->sendEmail($userCreate->email, $event->subject_email, "'".$format['template']."'");
+                    
+                //TODO: enviar correo si esta autorizado.
+                if ( $request->send_email ) {
+                    $format = $this-> formatEmailEvent($message, $event, $qr, $eventUser->id, $hall, $message_email);
+        
+                    $email = $this->sendEmail($userCreate->email, $event->subject_email, "'".$format['template']."'");
+                }
     
                 // $email = $this->sendEmail($event->email, $event->subject_email, $templete);
             }else{
@@ -290,14 +296,17 @@ class RegisterEventController extends Controller
                 'actived' => false,
             ]);
 
-            $tokens ='<br>'.env('FRONT').'#/Register-Event-Token?token='.$token;
-            $templete = "<p>Tienes una invitación a un evento (copia y pega la url en el navegador): </p>".$tokens;
+            //TODO: enviar correo si esta autorizado.
+            if ( $request->send_email ) {
+                $tokens ='<br>'.env('FRONT').'#/Register-Event-Token?token='.$token;
+                $templete = "<p>Tienes una invitación a un evento (copia y pega la url en el navegador): </p>".$tokens;
 
-            $templete = view('events.standar', ["event" => $event, "message" => $templete]);
-            $templete = preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, htmlentities($templete));
-            $templete = html_entity_decode($templete);
-
-            $email = $this->sendEmail($eventInv->email, "Invitacion a ". $event->name, $templete, true, "importInvitations", "EventInvitation", $eventInv->id);
+                $templete = view('events.standar', ["event" => $event, "message" => $templete]);
+                $templete = preg_replace("/[\r\n|\n|\r]+/", PHP_EOL, htmlentities($templete));
+                $templete = html_entity_decode($templete);
+            
+                $email = $this->sendEmail($eventInv->email, "Invitacion a ". $event->name, $templete, true, "importInvitations", "EventInvitation", $eventInv->id);
+            }
             //$email = $this->sendEmail($eventInv->email, 'HeartOnline', $templete);
                             
             //$email = $this->sendEmail($event->email, $event->subject_email, $templete);
