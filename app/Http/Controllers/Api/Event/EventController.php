@@ -137,7 +137,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        // dd(json_encode($request->citySelect));
+
         $city = json_decode($request->city_event_id);
                 
         $rules = [
@@ -145,8 +145,8 @@ class EventController extends Controller
             'event_type_id'     => 'required|exists:event_types,id',
             'description'       => 'required',
             // 'address'           => 'required',
-            'city_event_id'     => 'required',
-            'city_id'           => 'required|exists:cities,id',
+            // 'city_event_id'     => 'required',
+            // 'city_id'           => 'required|exists:cities,id',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date',
             'friendly_url'      => 'required',
@@ -170,7 +170,7 @@ class EventController extends Controller
         if($request->wa_req_mapa){
             $mapa = $this->saveImg($request->wa_mapa_value);      
         }
-        
+       
         $toSave = array (
             'name' => $request->name,
             'event_type_id' => $request->event_type_id,
@@ -179,8 +179,8 @@ class EventController extends Controller
             'end_date' => $request->end_date,
             //'start_hour' => $request->start_hour,
             //'end_hour' => $request->end_hour,
-            'city_id' => $request->city_id,
-            'city_event_id' => $city->id,
+            'city_id' => $request->city_id === null || $request->city_id === '' ? null : $request->city_id,
+            'city_event_id' => $city  === null || $city === '' || $city->id === 0 ? null : $city->id ,
             'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
@@ -269,9 +269,9 @@ class EventController extends Controller
             'name'              => 'required',
             'event_type_id'     => 'required|exists:event_types,id',
             'description'       => 'required',
-            'city_id'           => 'required|exists:cities,id',
+            // 'city_id'           => 'required|exists:cities,id',
             // 'address'           => 'required',
-            'city_event_id'     => 'required',
+            // 'city_event_id'     => 'required',
             'start_date'        => 'required|date',
             'end_date'          => 'required|date',
             'friendly_url'      => 'required',
@@ -305,8 +305,8 @@ class EventController extends Controller
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,            
-            'city_id' => $request->city_id,
-            'city_event_id' => $city === null || $city === '' ? null : $city->id,
+            'city_id' => $request->city_id === null || $request->city_id === '' ? null : $request->city_id,
+            'city_event_id' => $city === null || $city === '' || $city->id === 0 ? null : $city->id,
             'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
