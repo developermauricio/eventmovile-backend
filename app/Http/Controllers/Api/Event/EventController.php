@@ -286,7 +286,10 @@ class EventController extends Controller
     public function update(Request $request, Event $event)
     {
         Log::info('entro update');
-        $city = json_decode($request->city_event_id);
+        Log::info($request);
+       
+        // $city_event = $request->city_event_id !== null ? json_decode($request->city_event_id) : null;
+        // return $request->city_event_id;
         //
         $rules = [
             'name'              => 'required',
@@ -319,17 +322,22 @@ class EventController extends Controller
         $mapa = '';
         
         if($request->wa_req_mapa){
-            $mapa = $this->saveImg($request->wa_mapa_value);      
+            if( is_string($request->wa_mapa_value) ){
+                $mapa = $request->wa_mapa_value;
+            } else {
+                $mapa = $this->saveImg($request->wa_mapa_value);      
+            }
         }
-        
+
+        // return $request->city_event_id;
         $toSave = array (
             'name' => $request->name,
             'event_type_id' => $request->event_type_id,
             'description' => $request->description,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,            
-            'city_id' => $request->city_id === null || $request->city_id === '' ? null : $request->city_id,
-            'city_event_id' => $city === null || $city === '' || $city->id === 0 ? null : $city->id,
+            'city_id' => $request->city_id === null || $request->city_id === '' || $request->city_id === 0 || $request->city_id === '0' ? null : intval($request->city_id),
+            'city_event_id' => $request->city_event_id === null || $request->city_event_id === 0 || $request->city_event_id === '0' ? null  : intval($request->city_event_id),
             'address' => $request->address,
             'duration_minutes' => $request->duration_minutes,
             'friendly_url' => $request->friendly_url,
@@ -337,7 +345,7 @@ class EventController extends Controller
             'message_email' => $request->message_email,
             'subject_email' => $request->subject_email,
             'code_streaming' => $request->code_streaming,
-            'password' => $request->password,
+            //'password' => $request->password,
             'actived' => $request->actived,
             'image_on_register' => $request->image_on_register,
             'unique_login' => $request->unique_login,
@@ -363,7 +371,9 @@ class EventController extends Controller
             'url_form_register' => $request->url_form_register,
             'url_certificate' => $request->url_certificate,
             'on_demand' => $request->on_demand,
-        );                  
+            //'on_demand' => $request->on_demand === false || $request->on_demand === 0 ? 0 : 1,
+        );     
+        //  return $toSave;             
         DB::table('events')->where('id',$event->id)->update($toSave);   
              
         if(isset($request->req_payment) && $request->req_payment==1){
