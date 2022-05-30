@@ -557,6 +557,7 @@ Route::group(['prefix' => 'v1'],function(){
 
     //--/Califiaciones por actividad
     Route::post('/save-rate-activity', 'Api\WebApp\RateActivity\RateActivityController@saveRateActivity');
+    Route::get('/get-rate-activity/{activity_id}/{user_id}', 'Api\WebApp\RateActivity\RateActivityController@getRateActivity');
 
     //--/Galleria web app
     Route::post('/upload-image-gallery', 'Api\Gallery\GalleryController@uploadImage');

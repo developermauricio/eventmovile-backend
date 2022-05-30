@@ -17,6 +17,10 @@ class Activity extends Model
         return $this->hasOne(FavoriteActivities::class, 'activies_id');
     }
 
+    public function qualifyActivities(){
+        return $this->hasOne(RateActivity::class, 'activity_id');
+    }
+
     public function type_activity() {
         return $this->belongsTo('App\TypeActivity', 'type_activity_id', 'id');
     }
@@ -32,6 +36,11 @@ class Activity extends Model
     
     public function event() {
         return $this->belongsTo('App\Event', 'event_id');
+    }
+
+    public function isQualify($user)
+    {
+        return $this->qualifyActivities()->where('user_id', $user)->exists();
     }
 
     public function isFavorite($user)

@@ -11,7 +11,7 @@ class Speaker extends Model
     ];
 
     public function country_event(){
-        return $this->belongsTo('App\CountryEvent','id','country_id');
+        return $this->belongsTo('App\CountryEvent','country_id','id');
     }
 
     public $timestamps = true;

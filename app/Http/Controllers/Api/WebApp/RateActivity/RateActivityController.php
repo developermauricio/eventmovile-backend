@@ -18,4 +18,10 @@ class RateActivityController extends Controller
 
         return response()->json('Se guardo la calificación correctamente');
     }
+
+    public function getRateActivity($activity, $user){
+        $rating = RateActivity::where('activity_id', $activity)->where('user_id', $user)->first();
+        return $rating;
+
+    }
 }

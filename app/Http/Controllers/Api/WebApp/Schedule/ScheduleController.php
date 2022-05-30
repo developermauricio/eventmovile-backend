@@ -13,7 +13,7 @@ class ScheduleController extends Controller
 {
     public function getSchedule($event, $user_id){
     
-        $activities = Activity::where('event_id', $event)->with('speakers')->orderBy('start_date','ASC')->get();
+        $activities = Activity::where('event_id', $event)->with('speakers.country_event')->orderBy('start_date','ASC')->get();
         $eventDay = Event::where('id', $event)->get();
 
 
@@ -51,6 +51,7 @@ class ScheduleController extends Controller
                 "onDemand" => $hallActivities->onDemand,
                 "payment" => $hallActivities->payment,
                 "actived" => $hallActivities->actived,
+                "is_qualify" => $hallActivities->isQualify($user_id),
                 "is_favorite" => $hallActivities->isFavorite($user_id),
                 "id_favorite" => $hallActivities->isFavoriteId($user_id),
                 // "day" => $hallActivities->dayActivity($dayFormat, $dayStartDate),
