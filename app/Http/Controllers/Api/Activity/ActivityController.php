@@ -143,9 +143,11 @@ class ActivityController extends Controller
                 $invitations = DB::table('url_invitations')->where('user_id', Auth()->id())->get();
                 foreach ($invitations as $invitation) {
                     $eventInv = DB::table('event_invitations')->where('id', $invitation->invitation_id)->first();
-                    $activitiesjson = json_decode($eventInv->activities);                  
+                    $activitiesjson = json_decode($eventInv->activities); 
+                    // dd($activitiesjson);              
                     for ($i = 0; $i < count($activitiesjson); $i++) {
-                        if ($activitiesjson[$i] == $act->id) {
+                        //  dd($act->id);
+                        if ($activitiesjson[$i] === $act->id) {
                             $act->invited = true;
                         } else {
                             $act->invited = false;
