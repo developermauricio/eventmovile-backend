@@ -74,20 +74,35 @@ class ScheduleController extends Controller
         $days = collect();
         $i = 1;
         $dayStartDate = null;
-        foreach($activitiesStartDate as $activityDay){
+        // return $activitiesStartDate;
+        //  foreach($activitiesStartDate as $activityDay){
            
-            // dd(Carbon::parse($activityDay->start_date)->format('M d Y'));
-            $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
-            if($dayFormat !== $dayStartDate){
+        //      // dd(Carbon::parse($activityDay->start_date)->format('M d Y'));
+        //      $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+        //      if($dayFormat !== $dayStartDate){
                 
-                $days->push([
-                    "day" => $i
-                ]);
-                $i = $i+1;
-            }
-            $dayStartDate = $dayFormat;
-        }
+        //          $days->push([
+        //              "day" => $i
+        //          ]);
+        //      $i = $i+1;
+        //      }
+        //      $dayStartDate = $dayFormat;
+        //  }
 
-        return response()->json($days);
+        //  return response()->json($days);
+
+       
+
+         foreach($activitiesStartDate as $activityDay){
+           
+            //  $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+                
+                 $days->push([
+                     "day" => $activityDay->start_date
+                 ]);
+         }
+
+         return response()->json($days);
+      
     }
 }
