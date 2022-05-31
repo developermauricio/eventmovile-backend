@@ -94,37 +94,33 @@ class ScheduleController extends Controller
 
         //  return response()->json($days);
 
-       
-
-         foreach($activitiesStartDate as $activityDay){
+       $dayYear = null;
+        foreach($activitiesStartDate as $activityDay){
            
-            $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
-            if(count($days) > 0 ){
+            // $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+            $dayFormat = Carbon::parse($activityDay->start_date);
+            
+            // $dateYear =  $dayFormat->year
+            // if(count($days) > 0 ){
                 
-                foreach($days as $day){
+                // foreach($days as $day){
                     
-                    if($day["day"] !== $dayFormat){
+                    if($dayFormat->dayOfYear != $dayYear){
                         $days->push([
-                            "day" => $dayFormat
+                            "day" => $dayFormat->format('Y-m-d'), 
+                            "dayYear" => $dayFormat->dayOfYear
                         ]);
-                        break;
+                        $dayYear = $dayFormat->dayOfYear;
                     }
                    
-                }
-            }else{
-                $days->push([
-                    "day" => $dayFormat
-                ]);
-            }
-            
-             
-            // // if( $days !== $dayStartDate){
-            //      $days->push([
-            //          "day" => $dayFormat
-            //      ]);
-            //     // }
-                
-         }
+                // }
+            // }else{
+            //     $days->push([
+            //         "day" => $dayFormat->format('Y-m-d'),
+            //         "dayYear" => $dayFormat->dayOfYear
+            //     ]);
+            // }
+        }
         //  return  array_search( '2022-03-12', array_column($days, 'day'));
          return response()->json($days);
       
