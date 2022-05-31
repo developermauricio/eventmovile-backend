@@ -71,39 +71,62 @@ class ScheduleController extends Controller
     public function getCountDaysSchedule($event){
 
         $activitiesStartDate = Activity::select('start_date')->where('event_id', $event)->orderBy('start_date','ASC')->get();
+        // $activitiesStartDate = Activity::select('start_date')->distinct('MONTH(start_date)')->where('event_id', $event)->orderBy('start_date','ASC')->get();
+
         
         $days = collect();
         $i = 1;
         $dayStartDate = null;
         // return $activitiesStartDate;
-         foreach($activitiesStartDate as $activityDay){
-           
-             // dd(Carbon::parse($activityDay->start_date)->format('M d Y'));
-             $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
-             if($dayFormat !== $dayStartDate){
-                
-                 $days->push([
-                     "day" => $i
-                 ]);
-             $i = $i+1;
-             }
-             $dayStartDate = $dayFormat;
-         }
-
-         return response()->json($days);
-
-       
-
         //  foreach($activitiesStartDate as $activityDay){
            
-        //     //  $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+        //      // dd(Carbon::parse($activityDay->start_date)->format('M d Y'));
+        //      $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+        //      if($dayFormat !== $dayStartDate){
                 
         //          $days->push([
-        //              "day" => $activityDay->start_date
+        //              "day" => $i
         //          ]);
+        //      $i = $i+1;
+        //      }
+        //      $dayStartDate = $dayFormat;
         //  }
 
         //  return response()->json($days);
+
+       
+
+         foreach($activitiesStartDate as $activityDay){
+           
+            $dayFormat = Carbon::parse($activityDay->start_date)->format('Y-m-d');
+            if(count($days) > 0 ){
+                
+                foreach($days as $day){
+                    
+                    if($day["day"] !== $dayFormat){
+                        $days->push([
+                            "day" => $dayFormat
+                        ]);
+                        break;
+                    }
+                   
+                }
+            }else{
+                $days->push([
+                    "day" => $dayFormat
+                ]);
+            }
+            
+             
+            // // if( $days !== $dayStartDate){
+            //      $days->push([
+            //          "day" => $dayFormat
+            //      ]);
+            //     // }
+                
+         }
+        //  return  array_search( '2022-03-12', array_column($days, 'day'));
+         return response()->json($days);
       
     }
 }
