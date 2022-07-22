@@ -22,7 +22,7 @@ class User extends Authenticatable implements JWTSubject
      */
     protected $fillable = [
         'name', 'email', 'password','model_id', 'phone', 'pic', 'nit', 'company_id', 'position','lastname', 'uid',
-        'actived', 'job_title','image_on_register','user_type', 'online', 'call'
+        'actived', 'job_title','image_on_register','user_type', 'online', 'call', 'name_company'
     ];
 
     /**
@@ -46,6 +46,10 @@ class User extends Authenticatable implements JWTSubject
     public function company()
     {
         return $this->hasOne('App\Company', 'id', 'company_id');
+    }
+
+    public function empresa(){
+        return $this->belongsTo(Company::class, 'company_id');
     }
 
     public function meetings($acceptance = 0)

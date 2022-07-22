@@ -45,6 +45,7 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
     //end speakers
 
     //begin feria comercial
+    Route::get('get-companies-feria-comercial/{event}', 'Api\Event\EventController@getCompaniesFair');
     Route::post('createCompany','Api\Event\EventController@createFair');    
     Route::get('getCompanyFair/{event}','Api\Event\EventController@getCompanyFair');  
     Route::put('removeCompany','Api\Event\EventController@destroyCompany');    
@@ -490,6 +491,11 @@ Route::group(['prefix' => 'v1', 'middleware' => ['jwt.auth']],function(){
 
 
 Route::group(['prefix' => 'v1'],function(){    
+    Route::get('list-activities-for-event/{event}','Api\WebApp\RateActivity\RateActivityController@getActivitiesForEvent');
+
+    // Reporte de la calificacion de las actividades
+    Route::get('get-report-rate-for-event/{event}','Api\WebApp\RateActivity\RateActivityController@getReportRateForEvent');
+    Route::get('get-participantes/{event}','Api\WebApp\RateActivity\RateActivityController@getParticipantes');
 
     // Managent Slider logos   
     Route::put('update-slider-logos', 'Api\WebApp\SliderLogos\SliderLogosController@updateStylesLogos');
@@ -572,6 +578,8 @@ Route::group(['prefix' => 'v1'],function(){
     //--/Ciudades
     Route::get('/get-countries-event', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCountries')->name('get.data.countries');
     Route::get('/get-cities-event/{code}', 'Api\WebApp\CountriesCities\CountriesCitiesController@getCities')->name('get.data.cities');
+
+    //--/Feria comercial
 
     //--/Notificaciones por evento
     Route::get('/get-list-notifications-event/{id}', 'Api\Notification\NotificationController@getNotifications');

@@ -226,6 +226,7 @@ class EventController extends Controller
             'url_form_register' => $request->url_form_register,
             'url_certificate' => $request->url_certificate,
             'on_demand' => $request->on_demand,
+            'enable_company' => $request->enable_company,
         );          
         $event = Event::create($toSave);        
         //si requiere webapp se crea album asociado al event}
@@ -371,6 +372,7 @@ class EventController extends Controller
             'url_form_register' => $request->url_form_register,
             'url_certificate' => $request->url_certificate,
             'on_demand' => $request->on_demand,
+            'enable_company' => $request->enable_company,
             //'on_demand' => $request->on_demand === false || $request->on_demand === 0 ? 0 : 1,
         );     
         //  return $toSave;             
@@ -1137,12 +1139,17 @@ class EventController extends Controller
         }
     }
 
+    public function getCompaniesFair($event){
+        $companies = Fair::where('id_event', $event)->get();
+        return response()->json(['data' => $companies]);
+    }
 
     /**
      * Crea otro registro de empresa en feria comercial 
      * @param POST con la data
      */
-    public function createFair(Request $request){        
+    public function createFair(Request $request){   
+    
         $pic = $this->saveImg($request->logo_company);
         try {                 
             $create = Fair::create([                
@@ -1153,7 +1160,7 @@ class EventController extends Controller
                 'id_event'=>$request->id_event
             ]);
         } catch (\Throwable $th) {
-            return $this->errorResponse('Error create fair', 500);                   
+            return $this->errorResponse('Error create fair', $th);                   
         }
         return $this->successResponse(['data'=> $create, 'message'=>'Fair Created'], 201);
     }
