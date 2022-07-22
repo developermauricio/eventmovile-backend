@@ -22,7 +22,7 @@ class ProbeController extends Controller
                 $answer->save();
         
         }
-        return response()->json('Las respuestas se guardaron correctamente');
+        return response()->json('Las respuestas se guardaron correctamente', 200);
 
     }
 

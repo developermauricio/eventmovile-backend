@@ -171,16 +171,17 @@ class NetworkingController extends Controller
     public function getParticipants($idEvent)
     {
         $user_id = auth()->user()->id;
-        $users = User::select('id', 'name', 'lastname', 'email', 'online', 'pic')->with([
+        $users = User::select('id', 'name', 'lastname', 'email', 'online', 'pic', 'name_company')->with([
             'requestSent' => function ($requestSend) use ($user_id) {
                 return $requestSend->select('id', 'status', 'guest_id', 'chat_id')->where('creator_id', $user_id);
             },
             'requestReceived' => function ($requestSend) use ($user_id) {
                 return $requestSend->select('id', 'status', 'creator_id', 'chat_id')->where('guest_id', $user_id);
-            }
+            },
+            'empresa:name' 
         ])->whereHas('eventUsers', function ($q) use ($idEvent) {
             return $q->where('event_id', $idEvent);
-        })->where('id', '<>', $user_id)->paginate(50);
+        })->where('id', '<>', $user_id)->get();// ->paginate(50); 
 
         return response()->json($users);
     }

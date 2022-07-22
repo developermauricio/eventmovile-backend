@@ -350,7 +350,7 @@ class AuthController extends Controller
             'name'     => 'required',
             'lastname' => 'required',
         ];
-
+        
         $this->validate($request, $rules);
 
         $toCreate = $request->all();
